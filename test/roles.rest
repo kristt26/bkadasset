@@ -1,0 +1,26 @@
+@controller=http://localhost/bkadasset/role
+
+GET {{controller}}/get/1 HTTP/1.1
+Content-Type: application/json
+
+###
+POST {{controller}}/add HTTP/1.1
+Content-Type: application/json
+
+{
+  "role": "Admin"
+}
+
+###
+
+PUT {{controller}}/update HTTP/1.1
+Content-Type: application/json
+
+{
+  "id": "1",
+  "role": "Adminn"
+}
+
+###
+
+DELETE {{controller}}/delete/4 HTTP/1.1
