@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Agen Minyak Tanah | Log in</title>
+  <title>BKAD Asset Daerah | Log in</title>
   <link rel="icon" href="<?=base_url('favicon.ico')?>">
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,8 +22,8 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <!-- <img src="<?=base_url()?>public/img/btn.png" width="75%" alt=""><br><br> -->
-    <h4>Sistem Informasi Agen Minyak Tanah Berbasis SMS Gareway</h4> <br>
+    <img src="<?=base_url()?>public/img/logo.png" width="35%" alt=""><br>
+    <h3>Pendataan Asset Kendaraan</h3>
   </div>
   <!-- /.login-logo -->
   <div class="card card-warning">

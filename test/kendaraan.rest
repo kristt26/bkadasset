@@ -1,0 +1,37 @@
+@controller=http://localhost/bkadasset/kendaraan
+
+GET {{controller}}/get HTTP/1.1
+Content-Type: application/json
+
+###
+POST {{controller}}/add HTTP/1.1
+Content-Type: application/json
+
+{
+  "nama": "Testing",
+  "merk": "Xenia"
+}
+
+###
+
+POST {{controller}}/login HTTP/1.1
+Content-Type: : application/json
+
+{
+    "username": "admin",
+    "password": "stimik1011"
+}
+
+###
+PUT {{controller}}/update HTTP/1.1
+Content-Type: application/json
+
+{
+    "id": "1",
+    "nama": "Testing",
+    "merk": "Xenia"
+}
+
+###
+
+DELETE {{controller}}/delete/4 HTTP/1.1

@@ -1,0 +1,50 @@
+@controller=http://localhost/bkadasset/pengguna
+
+GET {{controller}}/get/2 HTTP/1.1
+Content-Type: application/json
+
+###
+POST {{controller}}/add HTTP/1.1
+Content-Type: application/json
+
+{
+  "id": "1",
+  "usersid": "1",
+  "nama": "Admin",
+  "email": "admin@mail.com",
+  "kontak": "08111",
+  "alamat": "test",
+  "jabatan": "Admin BKAD",
+  "username": "admin",
+  "password":"stimik1011",
+  "rolesid": "1"
+}
+
+###
+
+POST {{controller}}/login HTTP/1.1
+Content-Type: : application/json
+
+{
+    "username": "admin",
+    "password": "stimik1011"
+}
+
+###
+PUT {{controller}}/update HTTP/1.1
+Content-Type: application/json
+
+{
+  "id": "2",
+  "usersid": "2",
+  "nama": "Admin",
+  "email": "admin@mail.com",
+  "kontak": "08111",
+  "alamat": "test",
+  "jabatan": "Admin BKAD",
+  "username": "Admin"
+}
+
+###
+
+DELETE {{controller}}/delete/4 HTTP/1.1

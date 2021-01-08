@@ -1,14 +1,12 @@
-@controller=http://localhost/bkadasset/user
-
-GET {{controller}}/get/1 HTTP/1.1
-Content-Type: application/json
+@controller=http://localhost/bkadasset/auth
 
 ###
-POST {{controller}}/add HTTP/1.1
-Content-Type: application/json
+POST {{controller}}/login HTTP/1.1
+Content-Type: : application/json
 
 {
-  "role": "Admin"
+    "username": "admin",
+    "password": "stimik1011"
 }
 
 ###

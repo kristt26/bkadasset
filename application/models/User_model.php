@@ -4,6 +4,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class User_model extends CI_Model
 {
+    
+    public function __construct()
+    {
+        parent::__construct();
+        
+        
+    }
+    
     public function select($id)
     {
         if(is_null($id)){
@@ -14,11 +22,9 @@ class User_model extends CI_Model
                 `pengguna`.`email`,
                 `pengguna`.`kontak`,
                 `pengguna`.`alamat`,
-                `opd`.`opd`,
-                `opd`.`jabatan`
+                `users`.`username`
             FROM
                 `pengguna`
-                LEFT JOIN `opd` ON `opd`.`penggunaid` = `pengguna`.`id`
                 LEFT JOIN `users` ON `users`.`id` = `pengguna`.`usersid`")->result();
         }else{
             return $this->db->query("SELECT
@@ -28,11 +34,9 @@ class User_model extends CI_Model
                 `pengguna`.`email`,
                 `pengguna`.`kontak`,
                 `pengguna`.`alamat`,
-                `opd`.`opd`,
-                `opd`.`jabatan`
+                `users`.`username`
             FROM
                 `pengguna`
-                LEFT JOIN `opd` ON `opd`.`penggunaid` = `pengguna`.`id`
                 LEFT JOIN `users` ON `users`.`id` = `pengguna`.`usersid` WHERE pengguna.id = '$id'")->row_object();
         }
     }
@@ -62,11 +66,33 @@ class User_model extends CI_Model
     }
     public function login($data)
     {
-        $user = $data['username'];
-        $password = md5($data['password']);
-        $datauser = $this->db->query("SELECT
-            * 
-            FROM user WHERE (username = '$user' OR email = '$user') AND password = '$password'")->row_array();
-        return $datauser;
+        $this->load->library('mylib');
+        $username = $data['username'];
+        $password = $data['password'];
+        $item = $this->db->query("SELECT
+        `pengguna`.`id`,
+        `pengguna`.`usersid`,
+        `pengguna`.`nama`,
+        `pengguna`.`email`,
+        `pengguna`.`kontak`,
+        `pengguna`.`alamat`,
+        `users`.`username`,
+        `users`.`password`,
+        `roles`.`role`
+    FROM
+        `pengguna`
+        LEFT JOIN `users` ON `users`.`id` = `pengguna`.`usersid` 
+        LEFT JOIN `userinrole` ON `userinrole`.`usersid` = `users`.`id`
+        RIGHT JOIN `roles` ON `roles`.`id` = `userinrole`.`rolesid`
+        WHERE pengguna.email = '$username' OR users.username = '$username'")->row_array();
+        if(password_verify($password, $item['password'])){
+            if($item['role']=='OPD'){
+                $opd = $this->db->get_where('opd', ['penggunaid'=>$item['id']])->row_array();
+                $item['opd'] = $opd['opd'];
+            }
+            return $item;
+        }else{
+            return false;
+        }
     }
 }

@@ -72,7 +72,7 @@
         </style>
 </head>
 
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini layout-fixed layout-footer-fixed">
   <?php
     if(!$this->session->userdata('is_login')){
       redirect('auth');
@@ -90,8 +90,8 @@
       <!-- Right navbar links -->
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link" href="<?=base_url('auth/logout')?>" role="button">
-            LOGOUT
+          <a class="nav-link" href="<?=base_url('auth/logout')?>" role="button" style="color: #fff">
+            <strong>LOGOUT</strong>
           </a>
         </li>
         <!-- <li class="nav-item">
@@ -106,11 +106,11 @@
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-warning elevation-4">
       <!-- Brand Logo -->
-      <a href="<?=base_url()?>public/index3.html" class="brand-link navbar-warning">
+      <a href="<?=base_url()?>public/index3.html" class="brand-link">
         <!-- <h5 class="brand-image elevation-">Agen</h5> -->
-        <!-- <img src="<?=base_url()?>public/img/logo.png" alt="SPK SAW" class="brand-image elevation-5"
-          style="opacity: .8"> -->
-        <span class="brand-text font-weight-light"><strong>Agen Minyak Tanah</strong></span>
+        <img src="<?=base_url()?>public/img/logo.png" alt="BKAD" class="brand-image elevation-0"
+          style="opacity: .9;">
+        <span class="brand-text font-weight-light" style="color:#fff"><strong>Asset Kendaraan</strong></span>
       </a>
 
       <!-- Sidebar -->
@@ -147,7 +147,7 @@
 
     <footer class="main-footer">
       <div class="float-right d-none d-sm-block">
-        <b>Sistem Informasi Agen Minyak Tanah Berbasis SMS Gateway</b>
+        <b>Sistem Informasi Asset Kendaraan</b>
       </div>
       <strong>Copyright &copy; 2020 Octagon Cendrawasih Solution (OCS)
     </footer>

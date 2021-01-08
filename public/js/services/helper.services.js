@@ -5,7 +5,7 @@ function helperServices($location) {
     service.url = $location.$$protocol + '://' + $location.$$host;
     if ($location.$$port) {
         // service.url = service.url + ':' + $location.$$port;
-        service.url = service.url + ':' + $location.$$port + '/agenminyak';
+        service.url = service.url + ':' + $location.$$port + '/bkadasset';
     }
 
     // '    http://localhost:5000';
@@ -50,7 +50,7 @@ function helperServices($location) {
         var d = new Date();
         return result + '-' + (d.getFullYear().toString().substring(2,4)) + (d.getMonth() + 1).toString() + (d.getDate()).toString();
     }
-    service.roles = { id: 2, role: 'CSR' };
+    service.roles = [{ id: 1, role: 'Admin' },{id: 2, role: "OPD"}];
     service.sex = ['Pria', 'Wanita'];
     service.kategorikriteria = ['Benefit', 'Cost'];
     service.status = ['Aktif', 'Tidak Aktif'];

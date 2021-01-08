@@ -8,7 +8,7 @@ angular.module('apps', [
     'ui.utils.masks'
 ])
     .controller('indexController', function ($scope) {
-        $scope.titleHeader = "Agen Minyak Tanah";
+        $scope.titleHeader = "BKAD Asset";
         $scope.header = "";
         $scope.breadcrumb = "";
 

@@ -4,11 +4,11 @@
     <!-- <div class="image">
             <img src="<?=base_url()?>favicon.ico" class="img-circle elevation-2" alt="User Image">
           </div> -->
-    <div class="info">
+    <div class="info text-wrap">
       <a href="#" class="d-block">
-        <?= $this->session->userdata('namaagen');?>
+        <?= $this->session->userdata('role')=='OPD' ? "Selamat datang <b>".strtoupper($this->session->userdata('nama'))."</b> OPD ".ucfirst($this->session->userdata('opd')) : "Selamat datang <b>".strtoupper($this->session->userdata('nama'))."</b> - Admin BKAD " ;?>
       </a>
-      <h5 style="color: white">Admin</h5>
+      <!-- <h5 style="color: white">Admin</h5> -->
     </div>
   </div>
 
@@ -17,6 +17,10 @@
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
       <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+      <?php 
+      $a = $this->session->userdata('role');
+      if($this->session->userdata('role')=="Admin"):
+      ?>
       <li class="nav-item">
         <a href="<?=base_url('home')?>" ng-class="{'nav-link active': header=='Home', 'nav-link': header!='Home'}">
           <i class="nav-icon fas fa-home"></i>
@@ -25,7 +29,25 @@
           </p>
         </a>
       </li>
-      <li
+      <li class="nav-item">
+        <a href="<?=base_url('pengguna')?>"
+          ng-class="{'nav-link active': header=='Manajemen User', 'nav-link': header!='Manajemen User'}">
+          <i class="nav-icon fas fa-users"></i>
+          <p>
+            User
+          </p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="<?=base_url('opd')?>"
+          ng-class="{'nav-link active': header=='Manajemen OPD', 'nav-link': header!='Manajemen OPD'}">
+          <i class="nav-icon fas fa-user"></i>
+          <p>
+            OPD
+          </p>
+        </a>
+      </li>
+      <!-- <li
         ng-class="{'nav-item menu-open': header=='Pelanggan' || header=='Pembelian', 'nav-item': header!='Pelanggan' || header!='Pembelian'}">
         <a href="#"
           ng-class="{'nav-link active': header=='Pelanggan' || header=='Pembelian', 'nav-link': header!='Pelanggan' || header!='Pembelian'}">
@@ -55,13 +77,13 @@
             </a>
           </li>
         </ul>
-      </li>
+      </li> -->
       <li class="nav-item">
-        <a href="<?=base_url('transaksi')?>"
-          ng-class="{'nav-link active': header=='Transaksi Penjualan', 'nav-link': header!='Transaksi Penjualan'}">
+        <a href="<?=base_url('rabl')?>"
+          ng-class="{'nav-link active': header=='Manajemen RAB', 'nav-link': header!='Manajemen RAB'}">
           <i class="nav-icon fas fa-money-check-alt"></i>
           <p>
-            Transaksi Pembelian
+            RABL
           </p>
         </a>
       </li>
@@ -105,6 +127,25 @@
           </li>
         </ul>
       </li>
+      <?php else: ?>
+        <li class="nav-item">
+          <a href="<?=base_url('home')?>" ng-class="{'nav-link active': header=='Home', 'nav-link': header!='Home'}">
+            <i class="nav-icon fas fa-home"></i>
+            <p>
+              Home
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+        <a href="<?=base_url('rabl')?>"
+          ng-class="{'nav-link active': header=='Manajemen RAB' || header=='Tambah RABL' || header=='Ubah RABL', 'nav-link': header!='Manajemen RAB' || header!='Tambah RABL' || header!='Ubah RABL'}">
+          <i class="nav-icon fas fa-money-check-alt"></i>
+          <p>
+            RABL
+          </p>
+        </a>
+      </li>
+      <?php endif; ?>
 
     </ul>
   </nav>
