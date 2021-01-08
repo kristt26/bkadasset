@@ -60,7 +60,7 @@
                 </tbody>
               </table>
             </div>
-            
+
           </div>
           <div class="tab-pane fade" id="custom-tabs-one-disetujui" role="tabpanel"
             aria-labelledby="custom-tabs-one-disetujui-tab">

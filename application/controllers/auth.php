@@ -12,6 +12,7 @@ class Auth extends CI_Controller
 
     public function index()
     {
+        $this->User_model->check();
         $this->load->view('login');
     }
 
@@ -20,12 +21,12 @@ class Auth extends CI_Controller
         // $data = $this->input->post();
         $data = $this->input->post();
         $result = $this->User_model->login($data);
-        if (!is_null($result)) {
+        if ($result) {
             $result['is_login'] = true;
             $this->session->set_userdata($result);
             // echo json_encode($result);
             redirect('home');
-        }else{
+        } else {
             $this->session->set_flashdata('pesan', 'Username tidak ditemukan!!!');
             redirect('auth');
             // echo json_encode($result);

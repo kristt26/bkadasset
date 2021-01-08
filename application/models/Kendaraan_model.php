@@ -6,10 +6,10 @@ class Kendaraan_model extends CI_Model
 {
     public function select($id = null)
     {
-        if(is_null($id)){
+        if (is_null($id)) {
             return $this->db->get("jeniskendaraan")->result();
-        }else{
-            return $this->db->get_where("jeniskendaraan", ['id'=>$id])->row_object();
+        } else {
+            return $this->db->get_where("jeniskendaraan", ['id' => $id])->row_object();
         }
     }
 
@@ -18,7 +18,7 @@ class Kendaraan_model extends CI_Model
         $this->db->trans_begin();
         $this->db->insert('jeniskendaraan', $data);
         $data['id'] = $this->db->insert_id();
-        if($this->db->trans_status()){
+        if ($this->db->trans_status()) {
             $this->db->trans_commit();
             return $data;
         } else {
@@ -30,14 +30,14 @@ class Kendaraan_model extends CI_Model
     {
         $this->db->trans_begin();
         $kendaraan = [
-            'nama'=>$data['nama'],
-            'merk'=>$data['merk']
+            'type' => $data['type'],
+            'merk' => $data['merk'],
         ];
-        $this->db->update('jeniskendaraan', $kendaraan, ['id'=>$data['id']]);
-        if($this->db->trans_status()){
+        $this->db->update('jeniskendaraan', $kendaraan, ['id' => $data['id']]);
+        if ($this->db->trans_status()) {
             $this->db->trans_commit();
             return $data;
-        }else{
+        } else {
             $this->db->trans_rollback();
             return false;
         }
