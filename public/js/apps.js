@@ -5,7 +5,8 @@ angular.module('apps', [
     'services',
     'datatables',
     'ngLocale',
-    'ui.utils.masks'
+    'ui.utils.masks',
+    'naif.base64'
 ])
     .controller('indexController', function ($scope) {
         $scope.titleHeader = "BKAD Asset";

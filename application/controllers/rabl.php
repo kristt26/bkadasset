@@ -8,8 +8,10 @@ class Rabl extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Rabl_model');
+        $this->load->library('mylib');
+
     }
-    
+
     public function index()
     {
         $data['content'] = $this->load->view('rabl/index', '', true);
@@ -25,13 +27,18 @@ class Rabl extends CI_Controller
     public function add()
     {
         $data = json_decode($this->security->xss_clean($this->input->raw_input_stream), true);
-        $result = $this->Rabl_model->insert($data);
-        echo json_encode($result);
+        $a = $this->mylib->decodebase64($data['base64']);
+        if ($a) {
+            echo json_encode(true);
+        } else {
+            echo json_encode(false);
+        }
+        // $result = $this->Rabl_model->insert($data);
     }
 
     public function content()
     {
-        $data['content'] = $this->load->view('rabl/'.$_GET['url'], '', true);
+        $data['content'] = $this->load->view('rabl/' . $_GET['url'], '', true);
         $this->load->view('_shared/layout', $data);
     }
 

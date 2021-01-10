@@ -1,6 +1,6 @@
 <div class="row" ng-controller="rablController">
   <div class="col-md-12">
-    <form role="form" ng-submit="save()">
+    <form role="form" name="form" ng-submit="save()">
       <!-- Surat -->
       <div class="card card-warning">
         <div class="card-header">
@@ -81,10 +81,14 @@
         </div>
         <div class="card-body">
           <div class="form-group row">
-            <label for="nomor" class="col-sm-2 col-form-label col-form-label-sm">Surat Pesan Kendaraan</label>
+            <label for="suratpesankendaraan" class="col-sm-2 col-form-label col-form-label-sm">Surat Pesan Kendaraan</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control  form-control-sm" id="nomor" ng-model="model.nomor"
-                placeholder="No. Surat">
+              <div class="custom-file">
+                <input type="file" class="custom-file-input form-control-sm" id="suratpesankendaraan" name="suratpesankendaraan" id="suratpesankendaraan" ng-model="model.suratpesankendaraan" accept=".pdf" maxsize="500" required base-sixty-four-input>
+                <label class="custom-file-label col-form-label-sm" for="suratpesankendaraan">Choose file</label>
+              </div>
+              <!-- <input type="file" class="form-control  form-control-sm" name="suratpesankendaraan" id="suratpesankendaraan" ng-model="model.suratpesankendaraan" accept=".pdf" maxsize="500" required base-sixty-four-input> -->
+              <span style="color:red;" ng-show="form.suratpesankendaraan.$error.maxsize">Files must not exceed 5000 KB</span>
             </div>
           </div>
           <div class="form-group row">
@@ -167,7 +171,7 @@
                 </tr>
               </thead>
               <tbody>
-                  <tr ng-repeat="param in testing.detail">
+                  <tr ng-repeat="param in model.detail">
                     <td>
                         <select ng-class="{'form-control form-control-sm select2': param.edit, 'form-control-plaintext form-control-sm select2': !param.edit}" style="width:100% !important" ng-options="item as (item.merk+' | '+item.type) for item in kendaraans track by item.id" ng-model="param.kendaraan" ng-disabled="!param.edit" id="{{param.nomorrangka}}">
                         <option value=""></option>

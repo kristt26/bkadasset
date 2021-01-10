@@ -44,7 +44,7 @@
                 align-items: center;
                 direction: row;
             }
-         
+
             @media screen {
                 #print {
                     /* font-family:verdana, arial, sans-serif; */
@@ -68,16 +68,16 @@
                 }
             }
 
-            
+
         </style>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed layout-footer-fixed">
   <?php
-    if(!$this->session->userdata('is_login')){
-      redirect('auth');
-    }
-  ?>
+if (!$this->session->userdata('is_login')) {
+    redirect('auth');
+}
+?>
   <div class="wrapper">
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand navbar-dark navbar-warning">
@@ -114,9 +114,9 @@
       </a>
 
       <!-- Sidebar -->
-      <?php 
-        $this->load->view('_shared/sidebar');
-       ?>
+      <?php
+$this->load->view('_shared/sidebar');
+?>
       <!-- /.sidebar -->
     </aside>
 
@@ -205,6 +205,7 @@
   <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
   <script src="<?=base_url()?>public/lib/angular-locale_id-id.js"></script>
   <script src="<?=base_url()?>public/lib/input-mask/angular-input-masks-standalone.min.js"></script>
+  <script src="<?=base_url()?>public/lib/angular-base64-upload.js"></script>
   <!-- Page script -->
   <script>
     $(function () {
@@ -213,7 +214,7 @@
         placeholder: '--- Pilih Item ---'
       });
 
-      
+
 
       //Initialize Select2 Elements
       $('.select2bs4').select2({

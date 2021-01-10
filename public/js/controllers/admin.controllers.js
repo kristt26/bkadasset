@@ -216,4 +216,11 @@ function rablController($scope, helperServices, OpdServices, RablServices, Kenda
             }
         }
     }
+    $scope.logFile = (set, item)=>{
+        // $.LoadingOverlay("show");
+        console.log(set.$error.maxsize);
+        // RablServices.post(item).then(x=>{
+        //     $.LoadingOverlay("hide");
+        // })
+    }
 }
