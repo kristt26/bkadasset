@@ -4,12 +4,20 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Rabl_model extends CI_Model
 {
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->library('mylib');
+
+    }
+
     public function select($id = null)
     {
-        if(is_null($id)){
+        if (is_null($id)) {
             $penggunaid = $this->session->userdata('id');
-            $string = $this->session->userdata('role')=='OPD' ? " WHERE opd.penggunaid='$penggunaid'" : "";
-            
+            $string = $this->session->userdata('role') == 'OPD' ? " WHERE opd.penggunaid='$penggunaid'" : "";
+
             return $this->db->query("SELECT
                 `rabl`.`tanggal` AS `tanggalpengajuan`,
                 `suratperjanjian`.`nomor`,
@@ -26,10 +34,10 @@ class Rabl_model extends CI_Model
                 `rabl`
                 LEFT JOIN `suratperjanjian` ON `rabl`.`id` = `suratperjanjian`.`rablid`
                 LEFT JOIN `opd` ON `rabl`.`opdid` = `opd`.`id` $string")->result();
-        }else{
-            $rabl = $this->db->get_where("rabl", ['id'=>$id])->row_object();
-            $rabl->suratperjanjian = $this->db->get_where("suratperjanjian", ['rablid'=>$rabl->id])->row_object();
-            $rabl->detailrabl = $this->db->get_where("detailrabl", ['rablid'=>$rabl->id])->result();
+        } else {
+            $rabl = $this->db->get_where("rabl", ['id' => $id])->row_object();
+            $rabl->suratperjanjian = $this->db->get_where("suratperjanjian", ['rablid' => $rabl->id])->row_object();
+            $rabl->detailrabl = $this->db->get_where("detailrabl", ['rablid' => $rabl->id])->result();
         }
     }
 
@@ -37,12 +45,26 @@ class Rabl_model extends CI_Model
     {
         $this->db->trans_begin();
         $rabl = [
-            'rabl'=>$data['rabl'],
-            'penggunaid'=>$data['penggunaid']
+            'rabl' => $data['rabl'],
+            'opdid' => $this->session->userdata('opdid'),
+            'tanggal' => date('Y-m-d'),
+        ];
+        $rabl['id'] = $this->db->insert_id();
+        $surat = [
+            "rablid" => $rabl['id'],
+            "nomor" => $data['nomor'],
+            "tanggal" => $data['tanggal'],
+            "pekerjaan" => $data['pekerjaan'],
+            "nilaipekerjaan" => $data['nilaipekerjaan'],
+            "sumberdana" => $data['sumberdana'],
+            "lokasi" => $data['lokasi'],
+            "waktupelaksanaan" => $data['waktupelaksanaan'],
+            "tahunanggaran" => $data['tahunanggaran'],
+            "tahunanggaran" => $data['pelaksana'],
         ];
         $this->db->insert("rabl", $rabl);
         $data['id'] = $this->db->insert_id();
-        if($this->db->trans_status()){
+        if ($this->db->trans_status()) {
             $this->db->trans_commit();
             return $data;
         } else {
@@ -54,18 +76,20 @@ class Rabl_model extends CI_Model
     {
         $this->db->trans_begin();
         $user = [
-            'username'=>$data['username']
+            'username' => $data['username'],
+            'opdid' => $this->session->userdata('opdid'),
+            'tanggal' => date('Y-m-d'),
         ];
-        $this->db->update('users', $user, ['id'=>$data['usersid']]);
+        $this->db->update('users', $user, ['id' => $data['usersid']]);
         $rabl = [
-            'rabl'=>$data['rabl'],
-            'penggunaid'=>$data['penggunaid']
+            'rabl' => $data['rabl'],
+            'penggunaid' => $data['penggunaid'],
         ];
-        $this->db->update('rabl', $rabl, ['id'=>$data['id']]);
-        if($this->db->trans_status()){
+        $this->db->update('rabl', $rabl, ['id' => $data['id']]);
+        if ($this->db->trans_status()) {
             $this->db->trans_commit();
             return $data;
-        }else{
+        } else {
             $this->db->trans_rollback();
             return false;
         }

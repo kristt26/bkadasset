@@ -205,6 +205,32 @@ function rablController($scope, helperServices, OpdServices, RablServices, Kenda
         $scope.detailRabl ={};
         console.log(JSON.stringify($scope.model));
     }
+    $scope.save = ()=>{
+        $.LoadingOverlay("show");
+        if($scope.model.id){
+            RablServices.put($scope.model).then(x=>{
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: 'Proses Berhasil'
+                });
+                $scope.model = {};
+                $scope.model.detail = [];
+                $.LoadingOverlay("hide");
+            })
+        }else{
+            RablServices.post($scope.model).then(x=>{
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: 'Proses Berhasil'
+                });
+                // $scope.model = {};
+                // $scope.model.detail = [];
+                $.LoadingOverlay("hide");
+            })
+        }
+    }
     $scope.sumTotal=(item)=>{
         if(item.qty && item.hargasatuan){
             if(item.ppn){

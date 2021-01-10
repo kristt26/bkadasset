@@ -26,14 +26,14 @@
           <div class="form-group row">
             <label for="pekerjaan" class="col-sm-2 col-form-label col-form-label-sm">Pekerjaan</label>
             <div class="col-sm-10">
-              <textarea class="form-control  form-control-sm" id="pekerjaan" ng-model="model.pekerjaan"
-                placeholder="pekerjaan Petugas" row="3"></textarea>
+              <input class="form-control  form-control-sm" id="pekerjaan" ng-model="model.pekerjaan"
+                placeholder="pekerjaan Petugas">
             </div>
           </div>
           <div class="form-group row">
             <label for="nilaipekerjaan" class="col-sm-2 col-form-label col-form-label-sm">Nilai Pekerjaan</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control  form-control-sm" id="nilaipekerjaan"
+              <input type="text" class="form-control  form-control-sm" id="nilaipekerjaan" ui-money-mask="0"
                 ng-model="model.nilaipekerjaan" placeholder="Nilai Pekerjaan">
             </div>
           </div>
@@ -86,7 +86,7 @@
               <div class="col-sm-8">
                 <div class="custom-file">
                   <input type="file" class="custom-file-input form-control-sm" id="suratpesankendaraan" name="suratpesankendaraan" id="suratpesankendaraan" ng-model="model.suratpesankendaraan" accept=".pdf" maxsize="5000" required base-sixty-four-input ng-change="logFile(model.suratpesankendaraan)">
-                  <label class="custom-file-label col-form-label-sm" for="suratpesankendaraan">{{model.suratpesankendaraan.filename}}</label>
+                  <label class="custom-file-label col-form-label-sm" for="suratpesankendaraan">{{model.suratpesankendaraan ? model.suratpesankendaraan.filename : 'Pilih File'}}</label>
                 </div>
                 <span style="color:red;" ng-show="form.suratpesankendaraan.$error.maxsize">Files must not exceed 5000 KB</span>
               </div>
@@ -96,7 +96,7 @@
               <div class="col-sm-8">
                 <div class="custom-file">
                   <input type="file" class="custom-file-input form-control-sm" id="baserahterima" name="baserahterima" id="baserahterima" ng-model="model.baserahterima" accept=".pdf" maxsize="5000" required base-sixty-four-input>
-                  <label class="custom-file-label col-form-label-sm" for="baserahterima">{{model.baserahterima.filename}}</label>
+                  <label class="custom-file-label col-form-label-sm" for="baserahterima">{{model.baserahterima ? model.baserahterima.filename : 'Pilih File'}}</label>
                 </div>
                 <span style="color:red;" ng-show="form.baserahterima.$error.maxsize">Files must not exceed 5000 KB</span>
               </div>
@@ -106,7 +106,7 @@
               <div class="col-sm-8">
                 <div class="custom-file">
                   <input type="file" class="custom-file-input form-control-sm" id="bapembayaran" name="bapembayaran" id="bapembayaran" ng-model="model.bapembayaran" accept=".pdf" maxsize="5000" required base-sixty-four-input>
-                  <label class="custom-file-label col-form-label-sm" for="bapembayaran">{{model.bapembayaran.filename}}</label>
+                  <label class="custom-file-label col-form-label-sm" for="bapembayaran">{{model.bapembayaran ? model.bapembayaran.filename : ' Pilih File'}}</label>
                 </div>
                 <span style="color:red;" ng-show="form.bapembayaran.$error.maxsize">Files must not exceed 5000 KB</span>
               </div>
@@ -116,7 +116,7 @@
               <div class="col-sm-8">
                 <div class="custom-file">
                   <input type="file" class="custom-file-input form-control-sm" id="bapemeriksaanpek" name="bapemeriksaanpek" id="bapemeriksaanpek" ng-model="model.bapemeriksaanpek" accept=".pdf" maxsize="5000" required base-sixty-four-input>
-                  <label class="custom-file-label col-form-label-sm" for="bapemeriksaanpek">{{model.bapemeriksaanpek.filename}}</label>
+                  <label class="custom-file-label col-form-label-sm" for="bapemeriksaanpek">{{model.bapemeriksaanpek ? model.bapemeriksaanpek.filename : "Pilih File"}}</label>
                 </div>
                 <span style="color:red;" ng-show="form.bapemeriksaanpek.$error.maxsize">Files must not exceed 5000 KB</span>
               </div>
@@ -126,7 +126,7 @@
               <div class="col-sm-8">
                 <div class="custom-file">
                   <input type="file" class="custom-file-input form-control-sm" id="bapemeriksaanadmnhslpek" name="bapemeriksaanadmnhslpek" id="bapemeriksaanadmnhslpek" ng-model="model.bapemeriksaanadmnhslpek" accept=".pdf" maxsize="5000" required base-sixty-four-input>
-                  <label class="custom-file-label col-form-label-sm" for="bapemeriksaanadmnhslpek">{{model.bapemeriksaanadmnhslpek.filename}}</label>
+                  <label class="custom-file-label col-form-label-sm" for="bapemeriksaanadmnhslpek">{{model.bapemeriksaanadmnhslpek ? model.bapemeriksaanadmnhslpek.filename : "Pilih File"}}</label>
                 </div>
                 <span style="color:red;" ng-show="form.bapemeriksaanadmnhslpek.$error.maxsize">Files must not exceed 5000 KB</span>
               </div>
@@ -136,7 +136,7 @@
               <div class="col-sm-8">
                 <div class="custom-file">
                   <input type="file" class="custom-file-input form-control-sm" id="srtpenawaranhrg" name="srtpenawaranhrg" id="srtpenawaranhrg" ng-model="model.srtpenawaranhrg" accept=".pdf" maxsize="5000" required base-sixty-four-input>
-                  <label class="custom-file-label col-form-label-sm" for="srtpenawaranhrg">{{model.srtpenawaranhrg.filename}}</label>
+                  <label class="custom-file-label col-form-label-sm" for="srtpenawaranhrg">{{model.srtpenawaranhrg ? model.srtpenawaranhrg.filename : "Pilih File"}}</label>
                 </div>
                 <span style="color:red;" ng-show="form.srtpenawaranhrg.$error.maxsize">Files must not exceed 5000 KB</span>
               </div>
@@ -146,7 +146,7 @@
               <div class="col-sm-8">
                 <div class="custom-file">
                   <input type="file" class="custom-file-input form-control-sm" id="srtpersetujuanhrg" name="srtpersetujuanhrg" id="srtpersetujuanhrg" ng-model="model.srtpersetujuanhrg" accept=".pdf" maxsize="5000" required base-sixty-four-input>
-                  <label class="custom-file-label col-form-label-sm" for="srtpersetujuanhrg">{{model.srtpersetujuanhrg.filename}}</label>
+                  <label class="custom-file-label col-form-label-sm" for="srtpersetujuanhrg">{{model.srtpersetujuanhrg ? model.srtpersetujuanhrg.filename : "Pilih File"}}</label>
                 </div>
                 <span style="color:red;" ng-show="form.srtpersetujuanhrg.$error.maxsize">Files must not exceed 5000 KB</span>
               </div>
@@ -156,7 +156,7 @@
               <div class="col-sm-8">
                 <div class="custom-file">
                   <input type="file" class="custom-file-input form-control-sm" id="strpenunjukanlangsung" name="strpenunjukanlangsung" id="strpenunjukanlangsung" ng-model="model.strpenunjukanlangsung" accept=".pdf" maxsize="5000" required base-sixty-four-input>
-                  <label class="custom-file-label col-form-label-sm" for="strpenunjukanlangsung">{{model.strpenunjukanlangsung.filename}}</label>
+                  <label class="custom-file-label col-form-label-sm" for="strpenunjukanlangsung">{{model.strpenunjukanlangsung ? model.strpenunjukanlangsung.filename : "Pilih File"}}</label>
                 </div>
                 <span style="color:red;" ng-show="form.strpenunjukanlangsung.$error.maxsize">Files must not exceed 5000 KB</span>
               </div>
@@ -166,7 +166,7 @@
               <div class="col-sm-8">
                 <div class="custom-file">
                   <input type="file" class="custom-file-input form-control-sm" id="srtpenunjukanpenyediabrg" name="srtpenunjukanpenyediabrg" id="srtpenunjukanpenyediabrg" ng-model="model.srtpenunjukanpenyediabrg" accept=".pdf" maxsize="5000" required base-sixty-four-input>
-                  <label class="custom-file-label col-form-label-sm" for="srtpenunjukanpenyediabrg">{{model.srtpenunjukanpenyediabrg.filename}}</label>
+                  <label class="custom-file-label col-form-label-sm" for="srtpenunjukanpenyediabrg">{{model.srtpenunjukanpenyediabrg ? model.srtpenunjukanpenyediabrg.filename : "Pilih File"}}</label>
                 </div>
                 <span style="color:red;" ng-show="form.srtpenunjukanpenyediabrg.$error.maxsize">Files must not exceed 5000 KB</span>
               </div>
@@ -176,7 +176,7 @@
               <div class="col-sm-8">
                 <div class="custom-file">
                   <input type="file" class="custom-file-input form-control-sm" id="srtperjanjianpengadaan" name="srtperjanjianpengadaan" id="srtperjanjianpengadaan" ng-model="model.srtperjanjianpengadaan" accept=".pdf" maxsize="5000" required base-sixty-four-input>
-                  <label class="custom-file-label col-form-label-sm" for="srtpenunjukanpenyediabrg">{{model.srtperjanjianpengadaan.filename}}</label>
+                  <label class="custom-file-label col-form-label-sm" for="srtpenunjukanpenyediabrg">{{model.srtperjanjianpengadaan ? model.srtperjanjianpengadaan.filename : "Pilih File"}}</label>
                 </div>
                 <span style="color:red;" ng-show="form.srtperjanjianpengadaan.$error.maxsize">Files must not exceed 5000 KB</span>
               </div>
@@ -279,6 +279,9 @@
           </div>
         </div>
       </div>
+      <div class="form-group d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary btn-sm pull-right">{{simpan ? 'Simpan': 'Ubah'}}</button>
+          </div>
     </form>
   </div>
 </div>
