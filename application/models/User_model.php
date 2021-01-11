@@ -78,7 +78,7 @@ class User_model extends CI_Model
         `pengguna`.`jabatan`,
         `users`.`username`,
         `users`.`password`,
-        `roles`.`role`,
+        `roles`.`role`
     FROM
         `pengguna`
         LEFT JOIN `users` ON `users`.`id` = `pengguna`.`usersid`
@@ -89,7 +89,7 @@ class User_model extends CI_Model
             if ($item['role'] == 'OPD') {
                 $opd = $this->db->get_where('opd', ['penggunaid' => $item['id']])->row_array();
                 $item['opd'] = $opd['opd'];
-                $item['opdid'] = $opd['opdid'];
+                $item['opdid'] = $opd['id'];
             }
             return $item;
         } else {

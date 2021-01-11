@@ -2,7 +2,7 @@
   <div class="col-md-12">
     <form role="form" name="form" ng-submit="save()">
       <!-- Surat -->
-      <div class="card card-warning">
+      <!-- <div class="card card-warning">
         <div class="card-header">
           <h3 class="card-title"><i class="fas fa-plus-square fa-1x"></i>&nbsp;&nbsp; Surat Perjanjian</h3>
           <div class="card-tools">
@@ -73,9 +73,9 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
       <!-- Upload Berkas -->
-      <div class="card card-warning">
+      <!-- <div class="card card-warning">
         <div class="card-header">
           <h3 class="card-title"><i class="fas fa-plus-square fa-1x"></i>&nbsp;&nbsp; Upload Berkas</h3>
         </div>
@@ -155,10 +155,10 @@
               <label class="col-sm-4 col-form-label col-form-label-sm">Surat Penunjukan Langsung</label>
               <div class="col-sm-8">
                 <div class="custom-file">
-                  <input type="file" class="custom-file-input form-control-sm" id="strpenunjukanlangsung" name="strpenunjukanlangsung" id="strpenunjukanlangsung" ng-model="model.strpenunjukanlangsung" accept=".pdf" maxsize="5000" required base-sixty-four-input>
-                  <label class="custom-file-label col-form-label-sm" for="strpenunjukanlangsung">{{model.strpenunjukanlangsung ? model.strpenunjukanlangsung.filename : "Pilih File"}}</label>
+                  <input type="file" class="custom-file-input form-control-sm" id="srtpenunjukanlangsung" name="srtpenunjukanlangsung" id="srtpenunjukanlangsung" ng-model="model.srtpenunjukanlangsung" accept=".pdf" maxsize="5000" required base-sixty-four-input>
+                  <label class="custom-file-label col-form-label-sm" for="srtpenunjukanlangsung">{{model.srtpenunjukanlangsung ? model.srtpenunjukanlangsung.filename : "Pilih File"}}</label>
                 </div>
-                <span style="color:red;" ng-show="form.strpenunjukanlangsung.$error.maxsize">Files must not exceed 5000 KB</span>
+                <span style="color:red;" ng-show="form.srtpenunjukanlangsung.$error.maxsize">Files must not exceed 5000 KB</span>
               </div>
             </div>
             <div class="form-group row">
@@ -183,13 +183,32 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
       <!-- Detail Kendaraan -->
       <div class="card card-warning">
         <div class="card-header">
           <h3 class="card-title"><i class="fas fa-plus-square fa-1x"></i>&nbsp;&nbsp; Item RABL</h3>
         </div>
         <div class="card-body">
+          <div class="col-12 col-md-6">
+              <div class="form-group row">
+                <label for="tanggal" class="col-sm-3 col-form-label col-form-label-sm">Tanggal</label>
+                <div class="col-sm-5">
+                  <input type="date" class="form-control  form-control-sm" id="tanggal" ng-model="model.tanggal">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="pelaksana" class="col-sm-3 col-form-label col-form-label-sm">Pelaksana</label>
+                <div class="col-sm-4">
+                  <select class="form-control form-control-sm select2" ng-options="item as item.nama for item in pelaksanas track by item.id" ng-model="pelaksana" id="pelaksana" ng-change="model.pelaksanaid = pelaksana.id">
+                    <option value=""></option>
+                  </select>
+                </div>
+                <div class="col-sm-1 d-flex justify-content-end">
+                  <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#addpelaksana"><i class="fas fa-plus-circle"></i></button>
+                </div>
+              </div>
+          </div>
           <div class="table-responsive p-0">
             <table class="table table-sm table-bordered table-head-fixed text-nowrap">
               <thead>
@@ -238,7 +257,6 @@
                       <input type="text" readonly class="form-control form-control-sm form-control-plaintext" ng-model="param.totalharga" ui-money-mask="0" required>
                     </td>
                     <td>
-                      <!-- <button type="submit" class="btn btn-info btn-sm"><i class="fas fa-plus-circle"></i></button> -->
                       <button type="button" ng-class="{'btn btn-warning btn-sm': !param.edit, 'btn btn-success btn-sm': param.edit}" ng-click = "param.edit ? param.edit=false : param.edit=true;"><i ng-class="{'fas fa-edit': !param.edit, 'far fa-save': param.edit}"></i></button>
                     </td>
                   </tr>
@@ -271,7 +289,7 @@
                       <input type="text" readonly class="form-control-plaintext form-control-sm " ng-model="detailRabl.totalharga" ui-money-mask="0">
                     </td>
                     <td>
-                      <button type="submit" class="btn btn-info btn-sm" ng-click="addItem(detailRabl)"><i class="fas fa-plus-circle"></i></button>
+                      <button type="button" class="btn btn-info btn-sm" ng-click="addItem(detailRabl)"><i class="fas fa-plus-circle"></i></button>
                     </td>
                   </tr>
               </tbody>
@@ -283,5 +301,45 @@
             <button type="submit" class="btn btn-primary btn-sm pull-right">{{simpan ? 'Simpan': 'Ubah'}}</button>
           </div>
     </form>
+  </div>
+  <div class="modal fade" id="addpelaksana" tabindex="-1" role="dialog" aria-labelledby="addpelaksana-label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-warning">
+          <h5 class="modal-title" id="addpelaksanaTitle">Add Pelaksana</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+          <form ng-submit="savePelaksana(itemPelaksana)">
+            <div class="modal-body">
+                <div class="form-group">
+                  <label for="namapelaksana" class="col-form-label col-form-label-sm">Nama</label>
+                  <input type="text" class="form-control form-control-sm" id="namapelaksana" ng-model="itemPelaksana.nama">
+                </div>
+                <div class="form-group">
+                  <label for="alamatpelaksana" class="col-form-label col-form-label-sm">Alamat</label>
+                  <textarea class="form-control form-control-sm" id="alamatpelaksana" rows="3" ng-model="itemPelaksana.alamat"></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="kontakpelaksana" class="col-form-label col-form-label-sm">Kontak</label>
+                  <input type="text" class="form-control form-control-sm" id="kontakpelaksana" ng-model="itemPelaksana.kontak">
+                </div>
+                <div class="form-group">
+                  <label for="logo" class="col-form-label col-form-label-sm">Logo</label>
+                  <div class="custom-file">
+                      <input type="file" class="custom-file-input form-control-sm form-control-sm" id="logo" name="logo" ng-model="itemPelaksana.logo" accept="image/*" maxsize="2000" required base-sixty-four-input>
+                      <label class="custom-file-label col-form-label-sm" for="baserahterima">{{itemPelaksana.logo ? itemPelaksana.logo.filename : 'Pilih File'}}</label>
+                  </div>
+                  <span style="color:red;" ng-show="form.logo.$error.maxsize">Files must not exceed 5000 KB</span>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary  btn-sm">Save</button>
+            </div>
+          </form>
+      </div>
+    </div>
   </div>
 </div>

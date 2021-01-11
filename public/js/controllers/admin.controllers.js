@@ -159,7 +159,7 @@ function opdController($scope, helperServices, OpdServices, PenggunaServices) {
         }
     }
 }
-function rablController($scope, helperServices, OpdServices, RablServices, KendaraanServices) {
+function rablController($scope, helperServices, OpdServices, RablServices, KendaraanServices, PelaksanaServices) {
     $scope.itemHeader = { title: "Manajemen RABL", breadcrumb: "RABL", header: "Manajemen RABL" };
     $scope.$emit("SendUp", $scope.itemHeader);
     $scope.datas = [];
@@ -170,8 +170,10 @@ function rablController($scope, helperServices, OpdServices, RablServices, Kenda
     $scope.simpan = true;
     $scope.title = "";
     $scope.kendaraans = [];
+    $scope.pelaksanas = [];
+    $scope.pelaksana = {};
     $scope.detailRabl ={};
-    $scope.testing = {"detail":[{"merk":"Daihatsu","type":"Gran Max MB","jeniskendaraanid":"1","nomorrangka":"121231","nomorplat":"21212","tahunperolehan":"2019","keterangan":"-","qty":1,"hargasatuan":30000000,"totalharga":27000000,"ppn":0.1,"kendaraan":{"id":"1","merk":"Daihatsu","type":"Gran Max MB"},"edit":false}]}
+    // $scope.testing = {"detail":[{"merk":"Daihatsu","type":"Gran Max MB","jeniskendaraanid":"1","nomorrangka":"121231","nomorplat":"21212","tahunperolehan":"2019","keterangan":"-","qty":1,"hargasatuan":30000000,"totalharga":27000000,"ppn":0.1,"kendaraan":{"id":"1","merk":"Daihatsu","type":"Gran Max MB"},"edit":false}]}
     const urlParams = new URLSearchParams(window.location.search);
     if(urlParams.get('url')=='add'){
         $scope.itemHeader = { title: "Tambah RABL", breadcrumb: "RABL", header: "Tambah RABL" };
@@ -179,14 +181,22 @@ function rablController($scope, helperServices, OpdServices, RablServices, Kenda
         $scope.title = "Tambah RABL";
         KendaraanServices.get().then(kendaraan=>{
             $scope.kendaraans = kendaraan;
-            $.LoadingOverlay("hide");
+            PelaksanaServices.get().then(pelaksana=>{
+                $scope.pelaksanas = pelaksana;
+                $.LoadingOverlay("hide");
+            })
         })
     }else if(urlParams.get('url')=='update'){
         $scope.itemHeader = { title: "Ubah RABL", breadcrumb: "RABL", header: "Ubah RABL" };
         $scope.$emit("SendUp", $scope.itemHeader);
         $scope.title = "Ubah RABL";
-        console.log(urlParams.get('url'));
-        $.LoadingOverlay("hide");
+        KendaraanServices.get().then(kendaraan=>{
+            $scope.kendaraans = kendaraan;
+            PelaksanaServices.get().then(pelaksana=>{
+                $scope.pelaksanas = pelaksana;
+                $.LoadingOverlay("hide");
+            })
+        })
     }else{
         RablServices.get().then(x => {
             $scope.datas = x;
@@ -219,6 +229,7 @@ function rablController($scope, helperServices, OpdServices, RablServices, Kenda
                 $.LoadingOverlay("hide");
             })
         }else{
+            $scope.model.tanggal = $scope.model.tanggal.getFullYear() + "-" + ($scope.model.tanggal.getMonth() + 1) + "-" + $scope.model.tanggal.getDate();
             RablServices.post($scope.model).then(x=>{
                 Swal.fire({
                     icon: 'success',
@@ -248,5 +259,13 @@ function rablController($scope, helperServices, OpdServices, RablServices, Kenda
         // RablServices.post(item).then(x=>{
         //     $.LoadingOverlay("hide");
         // })
+    }
+    $scope.savePelaksana = (item)=>{
+        $.LoadingOverlay("show");
+        PelaksanaServices.post(item).then(x=>{
+            $scope.pelaksana = x;
+            $("#addpelaksana").modal('hide');
+            $.LoadingOverlay("hide");
+        })
     }
 }

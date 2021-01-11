@@ -27,14 +27,14 @@
                     <th class="align-middle text-center">No</th>
                     <th class="align-middle text-center">Tanggal<br>Pengajuan</th>
                     <th class="align-middle text-center">OPD</th>
-                    <th class="align-middle text-center">Nomor</th>
+                    <!-- <th class="align-middle text-center">Nomor</th>
                     <th class="align-middle text-center">Tanggal</th>
                     <th class="align-middle text-center">Pekerjaan</th>
                     <th class="align-middle text-center">Nilai<br>Pekerjaan</th>
                     <th class="align-middle text-center">Sumber Dana</th>
                     <th class="align-middle text-center">Lokasi</th>
                     <th class="align-middle text-center">Waktu<br>Pelaksanaan</th>
-                    <th class="align-middle text-center">Tahun<br>Anggaran</th>
+                    <th class="align-middle text-center">Tahun<br>Anggaran</th> -->
                     <th class="align-middle text-center"><i class="fas fa-cog"></i></th>
                   </tr>
                 </thead>
@@ -43,14 +43,14 @@
                     <td>{{$index+1}}</td>
                     <td>{{item.tanggalpengajuan}}</td>
                     <td>{{item.opd}}</td>
-                    <td>{{item.nomor}}</td>
+                    <!-- <td>{{item.nomor}}</td>
                     <td>{{item.tanggal}}</td>
                     <td>{{item.pekerjaan}}</td>
                     <td>{{item.nilaipekerjaan}}</td>
                     <td>{{item.sumberdana}}</td>
                     <td>{{item.lokasi}}</td>
                     <td>{{item.waktupelaksanaan}}</td>
-                    <td>{{item.tahunanggaran}}</td>
+                    <td>{{item.tahunanggaran}}</td> -->
                     <td class="d-flex justify-content-center">
                       <button type="button" class="btn btn-warning btn-sm" ng-click ="edit(item)"><i class="fas fa-edit"></i></button>
                       <button type="button" class="btn btn-warning btn-sm" ng-click ="edit(item)"><i class="fas fa-edit"></i></button>
@@ -65,7 +65,7 @@
           <div class="tab-pane fade" id="custom-tabs-one-disetujui" role="tabpanel"
             aria-labelledby="custom-tabs-one-disetujui-tab">
             <div class="table-responsive p-0">
-              <table class="table table-sm table-hover table-head-fixed text-nowrap">
+              <!-- <table class="table table-sm table-hover table-head-fixed text-nowrap">
                 <thead>
                   <tr>
                     <th>No</th>
@@ -102,7 +102,7 @@
                     </td>
                   </tr>
                 </tbody>
-              </table>
+              </table> -->
             </div>
           </div>
         </div>
