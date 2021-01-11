@@ -200,6 +200,10 @@ function rablController($scope, helperServices, OpdServices, RablServices, Kenda
     }else{
         RablServices.get().then(x => {
             $scope.datas = x;
+            // helperServices.convertUrltoBase64(helperServices.url + "/public/img/berkas/testing.pdf").then(item=>{
+            //     window.open(item);
+            // });
+            // document.location.href = a;
             $.LoadingOverlay("hide");
         })
     }
@@ -217,7 +221,8 @@ function rablController($scope, helperServices, OpdServices, RablServices, Kenda
     }
     $scope.save = ()=>{
         $.LoadingOverlay("show");
-        if($scope.model.id){
+        var data = angular.copy($scope.model);
+        if($scope.model.suratperjanjian.id){
             RablServices.put($scope.model).then(x=>{
                 Swal.fire({
                     icon: 'success',
@@ -229,8 +234,9 @@ function rablController($scope, helperServices, OpdServices, RablServices, Kenda
                 $.LoadingOverlay("hide");
             })
         }else{
-            $scope.model.tanggal = $scope.model.tanggal.getFullYear() + "-" + ($scope.model.tanggal.getMonth() + 1) + "-" + $scope.model.tanggal.getDate();
-            RablServices.post($scope.model).then(x=>{
+            data.suratperjanjian.tanggal = data.suratperjanjian.tanggal.getFullYear() + "-" + (data.suratperjanjian.tanggal.getMonth() + 1) + "-" + data.suratperjanjian.tanggal.getDate();
+            console.log(data);
+            RablServices.postSurat($scope.model).then(x=>{
                 Swal.fire({
                     icon: 'success',
                     title: 'Success',
@@ -253,12 +259,17 @@ function rablController($scope, helperServices, OpdServices, RablServices, Kenda
             }
         }
     }
-    $scope.logFile = (item)=>{
-        // $.LoadingOverlay("show");
-        console.log(item);
-        // RablServices.post(item).then(x=>{
-        //     $.LoadingOverlay("hide");
-        // })
+    $scope.showModal = (idmodal, item)=>{
+        $("#"+idmodal).modal('show');
+        $scope.model = angular.copy(item);
+        $scope.model.suratperjanjian = {};
+        $scope.model.suratperjanjian.nilaipekerjaan = $scope.model.detail.reduce((x,y)=>{
+            return parseFloat(x) + (parseFloat(y.hargasatuan)*parseFloat(y.qty));
+        }, 0);
+    }
+    $scope.closeModal = (idmodal)=>{
+        $("#"+idmodal).modal('hide');
+        $scope.model = {};
     }
     $scope.savePelaksana = (item)=>{
         $.LoadingOverlay("show");
@@ -268,4 +279,14 @@ function rablController($scope, helperServices, OpdServices, RablServices, Kenda
             $.LoadingOverlay("hide");
         })
     }
+    $scope.export = function(){
+        $('.exportthis').printPreview();
+        $(document).bind('keydown', function(e) {
+            var code = (e.keyCode ? e.keyCode : e.which);
+            if (code == 80 && !$('#print-modal').length) {
+                $.printPreview.loadPrintPreview();
+                return false;
+            }
+        });
+     }
 }

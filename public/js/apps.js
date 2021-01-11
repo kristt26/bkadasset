@@ -8,6 +8,20 @@ angular.module('apps', [
     'ui.utils.masks',
     'naif.base64'
 ])
+    .directive('tooltip', function () {
+        return {
+            restrict: 'A',
+            link: function (scope, element, attrs) {
+                element.hover(function () {
+                    // on mouseenter
+                    element.tooltip('show');
+                }, function () {
+                    // on mouseleave
+                    element.tooltip('hide');
+                });
+            }
+        };
+    })
     .controller('indexController', function ($scope) {
         $scope.titleHeader = "BKAD Asset";
         $scope.header = "";

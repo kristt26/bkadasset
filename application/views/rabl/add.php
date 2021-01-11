@@ -19,7 +19,7 @@
           </div>
           <div class="form-group row">
             <label for="tanggal" class="col-sm-2 col-form-label col-form-label-sm">tanggal</label>
-            <div class="col-sm-3">
+            <div class="col-sm-2">
               <input type="date" class="form-control  form-control-sm" id="tanggal" ng-model="model.tanggal">
             </div>
           </div>
@@ -192,14 +192,14 @@
         <div class="card-body">
           <div class="col-12 col-md-6">
               <div class="form-group row">
-                <label for="tanggal" class="col-sm-3 col-form-label col-form-label-sm">Tanggal</label>
-                <div class="col-sm-5">
+                <label for="tanggal" class="col-sm-2 col-form-label col-form-label-sm">Tanggal</label>
+                <div class="col-sm-6">
                   <input type="date" class="form-control  form-control-sm" id="tanggal" ng-model="model.tanggal">
                 </div>
               </div>
               <div class="form-group row">
-                <label for="pelaksana" class="col-sm-3 col-form-label col-form-label-sm">Pelaksana</label>
-                <div class="col-sm-4">
+                <label for="pelaksana" class="col-sm-2 col-form-label col-form-label-sm">Pelaksana</label>
+                <div class="col-sm-5">
                   <select class="form-control form-control-sm select2" ng-options="item as item.nama for item in pelaksanas track by item.id" ng-model="pelaksana" id="pelaksana" ng-change="model.pelaksanaid = pelaksana.id">
                     <option value=""></option>
                   </select>

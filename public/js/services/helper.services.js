@@ -1,6 +1,6 @@
 angular.module('helper.service', []).factory('helperServices', helperServices);
 
-function helperServices($location) {
+function helperServices($location, $q) {
     var service = { IsBusy: false, absUrl: $location.$$absUrl };
     service.url = $location.$$protocol + '://' + $location.$$host;
     if ($location.$$port) {
@@ -54,5 +54,24 @@ function helperServices($location) {
     service.sex = ['Pria', 'Wanita'];
     service.kategorikriteria = ['Benefit', 'Cost'];
     service.status = ['Aktif', 'Tidak Aktif'];
+    service.convertUrltoBase64 = (url)=>{
+        var def = $q.defer();
+        var xhr = new XMLHttpRequest();       
+        xhr.open("GET", url, true); 
+        xhr.responseType = "blob";
+        xhr.onload = function (e) {
+                console.log(this.response);
+                var reader = new FileReader();
+                reader.onload = function(event) {
+                var res = event.target.result;
+                def.resolve(res);
+                console.log(res)
+                }
+                var file = this.response;
+                reader.readAsDataURL(file)
+        };
+        xhr.send()
+        return def.promise;
+    }
     return service;
 }

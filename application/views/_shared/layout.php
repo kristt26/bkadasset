@@ -36,6 +36,10 @@
   <link rel="stylesheet" href="<?=base_url()?>public/dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <!-- <link href="<?=base_url()?>public/lib/Print-Preview-Popup-Plugin-jQuery/src/css/960.css" rel="stylesheet">
+  <link href="<?=base_url()?>public/lib/Print-Preview-Popup-Plugin-jQuery/src/css/print-preview.css" rel="stylesheet">
+  <link href="<?=base_url()?>public/lib/Print-Preview-Popup-Plugin-jQuery/src/css/screen.css" rel="stylesheet">
+  <link href="<?=base_url()?>public/lib/Print-Preview-Popup-Plugin-jQuery/src/css/print.css" rel="stylesheet"> -->
   <style>
             .containerr {
                 display: flex;
@@ -171,6 +175,8 @@ $this->load->view('_shared/sidebar');
   <script src="<?=base_url()?>public/js/controllers/admin.controllers.js"></script>
   <!-- Bootstrap 4 -->
   <script src="<?=base_url()?>public/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- <script src="<?=base_url()?>public/plugins/popper/popper-utils.js"></script> -->
+  <!-- <script src="<?=base_url()?>public/plugins/popper/popper.js"></script> -->
   <!-- Select2 -->
   <script src="<?=base_url()?>public/plugins/select2/js/select2.full.min.js"></script>
   <!-- Bootstrap4 Duallistbox -->
@@ -197,7 +203,7 @@ $this->load->view('_shared/sidebar');
   <script src="<?=base_url()?>public/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
   <!-- AdminLTE App -->
   <script src="<?=base_url()?>public/dist/js/adminlte.min.js"></script>
-  <script src="<?php echo base_url('public/js/jquery.PrintArea.js'); ?>"></script>
+  <!-- <script src="<?php echo base_url('public/js/jquery.PrintArea.js'); ?>"></script> -->
   <!-- AdminLTE for demo purposes -->
   <script src="<?=base_url()?>public/dist/js/demo.js"></script>
   <script src="<?=base_url();?>public/js/googleMap.js"></script>
@@ -206,10 +212,17 @@ $this->load->view('_shared/sidebar');
   <script src="<?=base_url()?>public/lib/angular-locale_id-id.js"></script>
   <script src="<?=base_url()?>public/lib/input-mask/angular-input-masks-standalone.min.js"></script>
   <script src="<?=base_url()?>public/lib/angular-base64-upload.js"></script>
+  <!-- <script src="<?=base_url()?>public/lib/pdfmake/build/pdfmake.js"></script>
+  <script src="<?=base_url()?>public/lib/pdfmake/build/vfs_fonts.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"></script> -->
+  <script src="<?=base_url()?>public/lib/Print-Preview-Popup-Plugin-jQuery/src/jquery.print-preview.js"></script>
   <!-- Page script -->
   <script>
     $(function () {
+      $('button.print-preview').printPreview();
       //Initialize Select2 Elements
+      $('[data-toggle="tooltip"]').tooltip()
       $('.select2').select2({
         placeholder: '--- Pilih Item ---'
       });

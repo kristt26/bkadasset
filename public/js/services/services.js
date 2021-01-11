@@ -292,7 +292,7 @@ function RablServices($http, $q, helperServices, AuthService) {
     service.data = [];
     service.instance = false;
     return {
-        get: get, post: post, put: put, hapus: hapus
+        get: get, post: post, put: put, hapus: hapus, postSurat: postSurat
     };
 
     function get() {
@@ -333,6 +333,28 @@ function RablServices($http, $q, helperServices, AuthService) {
             (err) => {
                 def.reject(err);
                 message.error(err);
+            }
+        );
+        return def.promise;
+    }
+    function postSurat(param) {
+        var def = $q.defer();
+        $http({
+            method: 'post',
+            url: controller + 'addsurat',
+            data: param,
+            headers: AuthService.getHeader()
+        }).then(
+            (res) => {
+                var data = service.data.find(x=>x.id == param.id);
+                if (data) {
+                    data.suratperjanjian = res.data;
+                }
+                def.resolve(res.data);
+            },
+            (err) => {
+                def.reject(err);
+                Swal.fire(err.data);
             }
         );
         return def.promise;

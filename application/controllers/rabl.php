@@ -31,6 +31,13 @@ class Rabl extends CI_Controller
         echo json_decode($result);
     }
 
+    public function addsurat()
+    {
+        $data = json_decode($this->security->xss_clean($this->input->raw_input_stream), true);
+        $result = $this->Rabl_model->insertsurat($data);
+        echo json_encode($result);
+    }
+
     public function content()
     {
         $data['content'] = $this->load->view('rabl/' . $_GET['url'], '', true);
