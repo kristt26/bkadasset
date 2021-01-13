@@ -292,7 +292,7 @@ function RablServices($http, $q, helperServices, AuthService) {
     service.data = [];
     service.instance = false;
     return {
-        get: get, post: post, put: put, hapus: hapus, postSurat: postSurat
+        get: get, post: post, put: put, hapus: hapus, postSurat: postSurat, download: download
     };
 
     function get() {
@@ -397,6 +397,22 @@ function RablServices($http, $q, helperServices, AuthService) {
             (res) => {
                 var index = service.data.indexOf(param)
                 service.data.splice(index, 1);
+                def.resolve(res.data);
+            },
+            (err) => {
+                def.reject(err);
+            }
+        );
+        return def.promise;
+    }
+    function download() {
+        var def = $q.defer();
+        $http({
+            method: 'get',
+            url: controller + 'test',
+            headers: AuthService.getHeader()
+        }).then(
+            (res) => {
                 def.resolve(res.data);
             },
             (err) => {

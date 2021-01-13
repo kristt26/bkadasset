@@ -26,8 +26,8 @@ class Rabl_model extends CI_Model
                 LEFT JOIN `opd` ON `rabl`.`opdid` = `opd`.`id` $string")->result();
         foreach ($result as $key => $value) {
             $value->detail = $this->db->get_where('detailrabl', ['rablid' => $value->id])->result();
-            $value->pelaksana = $this->db->get_where('pelaksana', ['id'=>$value->pelaksanaid])->row_array();
-            $value->suratperjanjian = $this->db->get_where('suratperjanjian', ['rablid'=>$value->id])->row_array();
+            $value->pelaksana = $this->db->get_where('pelaksana', ['id' => $value->pelaksanaid])->row_array();
+            $value->suratperjanjian = $this->db->get_where('suratperjanjian', ['rablid' => $value->id])->row_array();
         }
         return $result;
     }
@@ -46,7 +46,7 @@ class Rabl_model extends CI_Model
                 throw new Exception($this->db->_error_message(), $this->db->_error_number());
             }
             $data['id'] = $this->db->insert_id();
-            
+
             foreach ($data['detail'] as $key => $value) {
                 $detail = [
                     'rablid' => $data['id'],
@@ -97,7 +97,7 @@ class Rabl_model extends CI_Model
                 "srtpenunjukanlangsung" => $this->mylib->decodebase64($data['suratperjanjian']['srtpenunjukanlangsung']['base64'], 'berkas'),
                 "srtpenunjukanpenyediabrg" => $this->mylib->decodebase64($data['suratperjanjian']['srtpenunjukanpenyediabrg']['base64'], 'berkas'),
                 "srtperjanjianpengadaan" => $this->mylib->decodebase64($data['suratperjanjian']['srtperjanjianpengadaan']['base64'], 'berkas'),
-                "status" => 'P',
+                "status" => 'N',
             ];
 
             $resultsurat = $this->db->insert("suratperjanjian", $surat);
@@ -111,6 +111,16 @@ class Rabl_model extends CI_Model
             $this->db->trans_rollback();
             log_message('error', sprintf('%s : %s : DB transaction failed. Error no: %s, Error msg:%s, Last query: %s', __CLASS__, __FUNCTION__, $e->getCode(), $e->getMessage(), print_r($this->main_db->last_query(), true)));
         }
+    }
+
+    public function getsurat($id)
+    {
+        return $this->db->query("SELECT
+            `suratperjanjian`.*
+        FROM
+            `suratperjanjian`
+            LEFT JOIN `rabl` ON `rabl`.`id` = `suratperjanjian`.`rablid`
+        WHERE rabl.id = '$id'")->row_object();
     }
 
     public function update($data)

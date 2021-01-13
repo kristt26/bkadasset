@@ -153,7 +153,7 @@ if ($this->session->userdata('role') == "Admin"):
           ng-class="{'nav-link active': header=='Manajemen RABL' || header=='Tambah RABL' || header=='Ubah RABL', 'nav-link': header!='Manajemen RABL' || header!='Tambah RABL' || header!='Ubah RABL'}">
           <i class="nav-icon fas fa-money-check-alt"></i>
           <p>
-            RABL
+            RABL & SP
           </p>
         </a>
       </li>

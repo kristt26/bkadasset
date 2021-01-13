@@ -23,7 +23,7 @@ class Pelaksana_model extends CI_Model
     public function insert($data)
     {
         $data['nama'] = strtoupper($data['nama']);
-        $data['logo'] = $this->mylib->decodebase64($data['logo']['base64'], "pelaksana");
+        $data['logo'] = $this->mylib->decodebase64($data['logo']['base64'], "img/pelaksana");
         $result = $this->db->insert('pelaksana', $data);
         $data['id'] = $this->db->insert_id();
         if ($result) {

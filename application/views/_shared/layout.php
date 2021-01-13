@@ -216,11 +216,10 @@ $this->load->view('_shared/sidebar');
   <script src="<?=base_url()?>public/lib/pdfmake/build/vfs_fonts.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"></script> -->
-  <script src="<?=base_url()?>public/lib/Print-Preview-Popup-Plugin-jQuery/src/jquery.print-preview.js"></script>
+  <!-- <script src="<?=base_url()?>public/lib/Print-Preview-Popup-Plugin-jQuery/src/jquery.print-preview.js"></script> -->
   <!-- Page script -->
   <script>
     $(function () {
-      $('button.print-preview').printPreview();
       //Initialize Select2 Elements
       $('[data-toggle="tooltip"]').tooltip()
       $('.select2').select2({

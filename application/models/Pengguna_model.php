@@ -4,16 +4,16 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Pengguna_model extends CI_Model
 {
-    
+
     public function __construct()
     {
         parent::__construct();
         $this->load->model('User_model');
     }
-    
+
     public function select($id = null)
     {
-        if(is_null($id)){
+        if (is_null($id)) {
             return $this->db->query("SELECT
                 `pengguna`.`id`,
                 `pengguna`.`usersid`,
@@ -27,7 +27,7 @@ class Pengguna_model extends CI_Model
             FROM
                 `pengguna`
                 LEFT JOIN `users` ON `users`.`id` = `pengguna`.`usersid`")->result();
-        }else{
+        } else {
             return $this->db->query("SELECT
                 `pengguna`.`id`,
                 `pengguna`.`usersid`,
@@ -48,29 +48,29 @@ class Pengguna_model extends CI_Model
     {
         $this->db->trans_begin();
         $user = [
-            'username'=>$data['username'],
-            'password'=>password_hash($data['password'], PASSWORD_DEFAULT)
+            'username' => $data['username'],
+            'password' => password_hash($data['password'], PASSWORD_DEFAULT),
         ];
         $this->User_model->insert($user);
         $userid = $this->db->insert_id();
         $role = [
-            'rolesid'=>$data['rolesid'],
-            'usersid'=>$userid
+            'rolesid' => $data['rolesid'],
+            'usersid' => $userid,
         ];
         $this->db->insert('userinrole', $role);
         $pengguna = [
-            'usersid' =>$userid,
-            'nama'=>$data['nama'],
-            'email'=>$data['email'],
-            'kontak'=>$data['kontak'],
-            'alamat'=>$data['alamat'],
-            'jabatan'=>$data['jabatan'],
-            'nip'=>$data['nip'],
+            'usersid' => $userid,
+            'nama' => $data['nama'],
+            'email' => $data['email'],
+            'kontak' => $data['kontak'],
+            'alamat' => $data['alamat'],
+            'jabatan' => $data['jabatan'],
+            'nip' => $data['nip'],
         ];
         $this->db->insert('pengguna', $pengguna);
         $pengguna['id'] = $this->db->insert_id();
         $pengguna['username'] = $data['username'];
-        if($this->db->trans_status()){
+        if ($this->db->trans_status()) {
             $this->db->trans_commit();
             return $pengguna;
         } else {
@@ -82,22 +82,22 @@ class Pengguna_model extends CI_Model
     {
         $this->db->trans_begin();
         $user = [
-            'username'=>$data['username']
+            'username' => $data['username'],
         ];
-        $this->db->update('users', $user, ['id'=>$data['usersid']]);
+        $this->db->update('users', $user, ['id' => $data['usersid']]);
         $pengguna = [
-            'nama'=>$data['nama'],
-            'email'=>$data['email'],
-            'kontak'=>$data['kontak'],
-            'alamat'=>$data['alamat'],
-            'jabatan'=>$data['jabatan'],
-            'nip'=>$data['nip'],
+            'nama' => $data['nama'],
+            'email' => $data['email'],
+            'kontak' => $data['kontak'],
+            'alamat' => $data['alamat'],
+            'jabatan' => $data['jabatan'],
+            'nip' => $data['nip'],
         ];
-        $this->db->update('pengguna', $pengguna, ['id'=>$data['id']]);
-        if($this->db->trans_status()){
+        $this->db->update('pengguna', $pengguna, ['id' => $data['id']]);
+        if ($this->db->trans_status()) {
             $this->db->trans_commit();
             return $data;
-        }else{
+        } else {
             $this->db->trans_rollback();
             return false;
         }
