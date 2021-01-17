@@ -231,7 +231,7 @@ function rablController($scope, helperServices, OpdServices, RablServices, Kenda
                 $.LoadingOverlay("hide");
             })
         } else {
-            data.suratperjanjian.tanggal = data.suratperjanjian.tanggal.getFullYear() + "-" + (data.suratperjanjian.tanggal.getMonth() + 1) + "-" + data.suratperjanjian.tanggal.getDate();
+            data.tanggal = data.tanggal.getFullYear() + "-" + (data.tanggal.getMonth() + 1) + "-" + data.tanggal.getDate();
             console.log(data);
             RablServices.postSurat($scope.model).then(x => {
                 Swal.fire({
