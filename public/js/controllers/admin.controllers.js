@@ -183,6 +183,7 @@ function rablController($scope, helperServices, OpdServices, RablServices, Kenda
             $scope.kendaraans = kendaraan;
             PelaksanaServices.get().then(pelaksana => {
                 $scope.pelaksanas = pelaksana;
+                $scope.model.suratperjanjian = {};
                 $.LoadingOverlay("hide");
             })
         })
