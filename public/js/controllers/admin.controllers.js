@@ -183,7 +183,6 @@ function rablController($scope, helperServices, OpdServices, RablServices, Kenda
             $scope.kendaraans = kendaraan;
             PelaksanaServices.get().then(pelaksana => {
                 $scope.pelaksanas = pelaksana;
-                $scope.model.suratperjanjian = {};
                 $.LoadingOverlay("hide");
             })
         })
@@ -220,7 +219,7 @@ function rablController($scope, helperServices, OpdServices, RablServices, Kenda
     $scope.save = () => {
         $.LoadingOverlay("show");
         var data = angular.copy($scope.model);
-        if ($scope.model.suratperjanjian.id) {
+        if ($scope.model.id) {
             RablServices.put($scope.model).then(x => {
                 Swal.fire({
                     icon: 'success',
