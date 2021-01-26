@@ -9,39 +9,40 @@
         <form role="form" ng-submit="save()">
           <div class="form-group">
             <label for="nip"  class="col-form-label col-form-label-sm">NIP</label>
-            <input type="text" class="form-control  form-control-sm" id="nip" ng-model="model.nip" placeholder="No. NIP">
+            <input type="text" class="form-control  form-control-sm" id="nip" ng-model="model.nip" placeholder="No. NIP" required>
           </div>
           <div class="form-group">
             <label for="nama" class="col-form-label col-form-label-sm">Nama</label>
-            <input type="text" class="form-control  form-control-sm" id="nama" ng-model="model.nama" placeholder="Nama Petugas">
+            <input type="text" class="form-control  form-control-sm" id="nama" ng-model="model.nama" placeholder="Nama Petugas" required>
           </div>
           <div class="form-group">
             <label for="alamat" class="col-form-label col-form-label-sm">Alamat</label>
-            <textarea class="form-control  form-control-sm" id="alamat" ng-model="model.alamat" placeholder="Alamat Petugas" row="3"></textarea>
+            <textarea class="form-control  form-control-sm" id="alamat" ng-model="model.alamat" placeholder="Alamat Petugas" row="3" required></textarea>
           </div>
           <div class="form-group">
             <label for="kontak" class="col-form-label col-form-label-sm">Telepon</label>
-            <input type="text" class="form-control  form-control-sm" id="kontak" ng-model="model.kontak" placeholder="No. Telepon">
+            <input type="text" class="form-control  form-control-sm" id="kontak" ng-model="model.kontak" placeholder="No. Telepon" required>
           </div>
           <div class="form-group">
             <label for="jabatan" class="col-form-label col-form-label-sm">Jabatan</label>
-            <input type="text" class="form-control  form-control-sm" id="jabatan" ng-model="model.jabatan" placeholder="Jabatan">
+            <input type="text" class="form-control  form-control-sm" id="jabatan" ng-model="model.jabatan" placeholder="Jabatan" required>
           </div>
           <div class="form-group">
             <label for="email" class="col-form-label col-form-label-sm">Email</label>
-            <input type="email" class="form-control  form-control-sm" id="email" ng-model="model.email" placeholder="Email Petugas">
+            <input type="email" class="form-control  form-control-sm" id="email" ng-model="model.email" placeholder="Email Petugas" required>
           </div>
           <div class="form-group">
             <label for="username" class="col-form-label col-form-label-sm">Username</label>
-            <input type="text" class="form-control  form-control-sm" id="username" ng-model="model.username" placeholder="username Petugas">
+            <input type="text" class="form-control  form-control-sm" id="username" ng-model="model.username" placeholder="username Petugas" required>
           </div>
-          <div class="form-group" ng-show = "simpan">
+          <div class="form-group" ng-if = "simpan">
             <label for="password" class="col-form-label col-form-label-sm">Password</label>
-            <input type="password" class="form-control  form-control-sm" id="password" ng-model="model.password" placeholder="Password">
+            <input type="password" class="form-control  form-control-sm" id="password" ng-model="model.password" placeholder="Password" required>
           </div>
-          <div class="form-group" ng-show = "simpan">
+          <div class="form-group" ng-if = "simpan">
             <label for="roles" class="col-form-label col-form-label-sm">User Akses</label>
-            <select id="roles" class="form-control  form-control-sm" ng-options="item as item.role for item in roles" ng-model="itemRoles" ng-change="model.rolesid=itemRoles.id"></select>
+            <select id="roles" class="form-control  form-control-sm" ng-options="item as item.role for item in roles" ng-model="itemRoles" ng-change="model.rolesid=itemRoles.id" required>
+            </select>
           </div>
           <div class="form-group d-flex justify-content-end">
             <button type="submit" class="btn btn-primary btn-sm pull-right">{{simpan ? 'Simpan': 'Ubah'}}</button>

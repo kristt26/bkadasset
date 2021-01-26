@@ -1,189 +1,6 @@
-<div class="row" ng-controller="rablController">
+<div class="row" ng-controller="rablController"  ng-init="Init()">
   <div class="col-md-12">
     <form role="form" name="form" ng-submit="save()">
-      <!-- Surat -->
-      <!-- <div class="card card-warning">
-        <div class="card-header">
-          <h3 class="card-title"><i class="fas fa-plus-square fa-1x"></i>&nbsp;&nbsp; Surat Perjanjian</h3>
-          <div class="card-tools">
-            <a href="<?=base_url()?>rabl" class="btn btn-secondary btn-sm"><i class="fa fa-arrow-left"></i> Kembali</a>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="form-group row">
-            <label for="nomor" class="col-sm-2 col-form-label col-form-label-sm">Nomor</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control  form-control-sm" id="nomor" ng-model="model.nomor"
-                placeholder="No. Surat">
-            </div>
-          </div>
-          <div class="form-group row">
-            <label for="tanggal" class="col-sm-2 col-form-label col-form-label-sm">tanggal</label>
-            <div class="col-sm-2">
-              <input type="date" class="form-control  form-control-sm" id="tanggal" ng-model="model.tanggal">
-            </div>
-          </div>
-          <div class="form-group row">
-            <label for="pekerjaan" class="col-sm-2 col-form-label col-form-label-sm">Pekerjaan</label>
-            <div class="col-sm-10">
-              <input class="form-control  form-control-sm" id="pekerjaan" ng-model="model.pekerjaan"
-                placeholder="pekerjaan Petugas">
-            </div>
-          </div>
-          <div class="form-group row">
-            <label for="nilaipekerjaan" class="col-sm-2 col-form-label col-form-label-sm">Nilai Pekerjaan</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control  form-control-sm" id="nilaipekerjaan" ui-money-mask="0"
-                ng-model="model.nilaipekerjaan" placeholder="Nilai Pekerjaan">
-            </div>
-          </div>
-          <div class="form-group row">
-            <label for="sumberdana" class="col-sm-2 col-form-label col-form-label-sm">Sumber Dana</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control  form-control-sm" id="sumberdana" ng-model="model.sumberdana"
-                placeholder="Sumber Dana">
-            </div>
-          </div>
-          <div class="form-group row">
-            <label for="lokasi" class="col-sm-2 col-form-label col-form-label-sm">Lokasi</label>
-            <div class="col-sm-10">
-              <input type="lokasi" class="form-control  form-control-sm" id="lokasi" ng-model="model.lokasi"
-                placeholder="Lokasi">
-            </div>
-          </div>
-          <div class="form-group row">
-            <label for="waktupelaksanaan" class="col-sm-2 col-form-label col-form-label-sm">Waktu Pelaksanaan</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control  form-control-sm" id="waktupelaksanaan"
-                ng-model="model.waktupelaksanaan" placeholder="Waktu Pelaksanaan Pekerjaan">
-            </div>
-          </div>
-          <div class="form-group row">
-            <label for="tahunanggaran" class="col-sm-2 col-form-label col-form-label-sm">Tahun Anggaran</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control  form-control-sm" id="tahunanggaran" ng-model="model.tahunanggaran"
-                placeholder="Tahun Anggaran">
-            </div>
-          </div>
-          <div class="form-group row">
-            <label for="pelaksana" class="col-sm-2 col-form-label col-form-label-sm">Pelaksana</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control  form-control-sm" id="pelaksana" ng-model="model.pelaksana"
-                placeholder="Pelaksana Pekerjaan">
-            </div>
-          </div>
-        </div>
-      </div> -->
-      <!-- Upload Berkas -->
-      <!-- <div class="card card-warning">
-        <div class="card-header">
-          <h3 class="card-title"><i class="fas fa-plus-square fa-1x"></i>&nbsp;&nbsp; Upload Berkas</h3>
-        </div>
-        <div class="card-body">
-          <div class="col-12 col-md-6">
-            <div class="form-group row">
-              <label class="col-sm-4 col-form-label col-form-label-sm">Surat Pesan Kendaraan</label>
-              <div class="col-sm-8">
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input form-control-sm" id="suratpesankendaraan" name="suratpesankendaraan" id="suratpesankendaraan" ng-model="model.suratpesankendaraan" accept=".pdf" maxsize="5000" required base-sixty-four-input ng-change="logFile(model.suratpesankendaraan)">
-                  <label class="custom-file-label col-form-label-sm" for="suratpesankendaraan">{{model.suratpesankendaraan ? model.suratpesankendaraan.filename : 'Pilih File'}}</label>
-                </div>
-                <span style="color:red;" ng-show="form.suratpesankendaraan.$error.maxsize">Files must not exceed 5000 KB</span>
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-sm-4 col-form-label col-form-label-sm">BA Serah Terima</label>
-              <div class="col-sm-8">
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input form-control-sm" id="baserahterima" name="baserahterima" id="baserahterima" ng-model="model.baserahterima" accept=".pdf" maxsize="5000" required base-sixty-four-input>
-                  <label class="custom-file-label col-form-label-sm" for="baserahterima">{{model.baserahterima ? model.baserahterima.filename : 'Pilih File'}}</label>
-                </div>
-                <span style="color:red;" ng-show="form.baserahterima.$error.maxsize">Files must not exceed 5000 KB</span>
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-sm-4 col-form-label col-form-label-sm">BA Pembayaran</label>
-              <div class="col-sm-8">
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input form-control-sm" id="bapembayaran" name="bapembayaran" id="bapembayaran" ng-model="model.bapembayaran" accept=".pdf" maxsize="5000" required base-sixty-four-input>
-                  <label class="custom-file-label col-form-label-sm" for="bapembayaran">{{model.bapembayaran ? model.bapembayaran.filename : ' Pilih File'}}</label>
-                </div>
-                <span style="color:red;" ng-show="form.bapembayaran.$error.maxsize">Files must not exceed 5000 KB</span>
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-sm-4 col-form-label col-form-label-sm">BA Pemeriksaan Pekerjaan</label>
-              <div class="col-sm-8">
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input form-control-sm" id="bapemeriksaanpek" name="bapemeriksaanpek" id="bapemeriksaanpek" ng-model="model.bapemeriksaanpek" accept=".pdf" maxsize="5000" required base-sixty-four-input>
-                  <label class="custom-file-label col-form-label-sm" for="bapemeriksaanpek">{{model.bapemeriksaanpek ? model.bapemeriksaanpek.filename : "Pilih File"}}</label>
-                </div>
-                <span style="color:red;" ng-show="form.bapemeriksaanpek.$error.maxsize">Files must not exceed 5000 KB</span>
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-sm-4 col-form-label col-form-label-sm">BA Pemeriksaan Adm. Pek.</label>
-              <div class="col-sm-8">
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input form-control-sm" id="bapemeriksaanadmnhslpek" name="bapemeriksaanadmnhslpek" id="bapemeriksaanadmnhslpek" ng-model="model.bapemeriksaanadmnhslpek" accept=".pdf" maxsize="5000" required base-sixty-four-input>
-                  <label class="custom-file-label col-form-label-sm" for="bapemeriksaanadmnhslpek">{{model.bapemeriksaanadmnhslpek ? model.bapemeriksaanadmnhslpek.filename : "Pilih File"}}</label>
-                </div>
-                <span style="color:red;" ng-show="form.bapemeriksaanadmnhslpek.$error.maxsize">Files must not exceed 5000 KB</span>
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-sm-4 col-form-label col-form-label-sm">Surat Penawaran Harga</label>
-              <div class="col-sm-8">
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input form-control-sm" id="srtpenawaranhrg" name="srtpenawaranhrg" id="srtpenawaranhrg" ng-model="model.srtpenawaranhrg" accept=".pdf" maxsize="5000" required base-sixty-four-input>
-                  <label class="custom-file-label col-form-label-sm" for="srtpenawaranhrg">{{model.srtpenawaranhrg ? model.srtpenawaranhrg.filename : "Pilih File"}}</label>
-                </div>
-                <span style="color:red;" ng-show="form.srtpenawaranhrg.$error.maxsize">Files must not exceed 5000 KB</span>
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-sm-4 col-form-label col-form-label-sm">Surat Persetujuan Harga</label>
-              <div class="col-sm-8">
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input form-control-sm" id="srtpersetujuanhrg" name="srtpersetujuanhrg" id="srtpersetujuanhrg" ng-model="model.srtpersetujuanhrg" accept=".pdf" maxsize="5000" required base-sixty-four-input>
-                  <label class="custom-file-label col-form-label-sm" for="srtpersetujuanhrg">{{model.srtpersetujuanhrg ? model.srtpersetujuanhrg.filename : "Pilih File"}}</label>
-                </div>
-                <span style="color:red;" ng-show="form.srtpersetujuanhrg.$error.maxsize">Files must not exceed 5000 KB</span>
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-sm-4 col-form-label col-form-label-sm">Surat Penunjukan Langsung</label>
-              <div class="col-sm-8">
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input form-control-sm" id="srtpenunjukanlangsung" name="srtpenunjukanlangsung" id="srtpenunjukanlangsung" ng-model="model.srtpenunjukanlangsung" accept=".pdf" maxsize="5000" required base-sixty-four-input>
-                  <label class="custom-file-label col-form-label-sm" for="srtpenunjukanlangsung">{{model.srtpenunjukanlangsung ? model.srtpenunjukanlangsung.filename : "Pilih File"}}</label>
-                </div>
-                <span style="color:red;" ng-show="form.srtpenunjukanlangsung.$error.maxsize">Files must not exceed 5000 KB</span>
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-sm-4 col-form-label col-form-label-sm">Surat Penunjukan Penyeda Barang</label>
-              <div class="col-sm-8">
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input form-control-sm" id="srtpenunjukanpenyediabrg" name="srtpenunjukanpenyediabrg" id="srtpenunjukanpenyediabrg" ng-model="model.srtpenunjukanpenyediabrg" accept=".pdf" maxsize="5000" required base-sixty-four-input>
-                  <label class="custom-file-label col-form-label-sm" for="srtpenunjukanpenyediabrg">{{model.srtpenunjukanpenyediabrg ? model.srtpenunjukanpenyediabrg.filename : "Pilih File"}}</label>
-                </div>
-                <span style="color:red;" ng-show="form.srtpenunjukanpenyediabrg.$error.maxsize">Files must not exceed 5000 KB</span>
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-sm-4 col-form-label col-form-label-sm">Surat Perjanjian Pengadaan</label>
-              <div class="col-sm-8">
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input form-control-sm" id="srtperjanjianpengadaan" name="srtperjanjianpengadaan" id="srtperjanjianpengadaan" ng-model="model.srtperjanjianpengadaan" accept=".pdf" maxsize="5000" required base-sixty-four-input>
-                  <label class="custom-file-label col-form-label-sm" for="srtpenunjukanpenyediabrg">{{model.srtperjanjianpengadaan ? model.srtperjanjianpengadaan.filename : "Pilih File"}}</label>
-                </div>
-                <span style="color:red;" ng-show="form.srtperjanjianpengadaan.$error.maxsize">Files must not exceed 5000 KB</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> -->
       <!-- Detail Kendaraan -->
       <div class="card card-warning">
         <div class="card-header">
@@ -194,7 +11,7 @@
               <div class="form-group row">
                 <label for="tanggal" class="col-sm-2 col-form-label col-form-label-sm">Tanggal</label>
                 <div class="col-sm-6">
-                  <input type="date" class="form-control  form-control-sm" id="tanggal" ng-model="model.tanggal">
+                  <input type="date" class="form-control  form-control-sm" id="tanggal" ng-model="model.tanggal" required>
                 </div>
               </div>
               <div class="form-group row">
@@ -217,6 +34,8 @@
                   <th class="align-middle text-center">Nomor<br>Rangka</th>
                   <th class="align-middle text-center">No Plat</th>
                   <th style="width:10%" class="align-middle text-center">Tahun<br>Perolehan</th>
+                  <th class="align-middle text-center">Pejabat</th>
+                  <th class="align-middle text-center">Jabatan</th>
                   <th class="align-middle text-center">Keterangan</th>
                   <th class="align-middle text-center">QTY</th>
                   <th class="align-middle text-center">Harga<br>Satuan</th>
@@ -240,6 +59,12 @@
                     </td>
                     <td>
                       <input type="text" ng-readonly="!param.edit" ng-class="{'form-control form-control-sm': param.edit, 'form-control-plaintext form-control-sm': !param.edit}" ng-model="param.tahunperolehan" required>
+                    </td>
+                    <td>
+                      <input type="text" ng-readonly="!param.edit" ng-class="{'form-control form-control-sm': param.edit, 'form-control-plaintext form-control-sm': !param.edit}" ng-model="param.pejabat" required>
+                    </td>
+                    <td>
+                      <input type="text" ng-readonly="!param.edit" ng-class="{'form-control form-control-sm': param.edit, 'form-control-plaintext form-control-sm': !param.edit}" ng-model="param.jabatan" required>
                     </td>
                     <td>
                       <input type="text" ng-readonly="!param.edit" ng-class="{'form-control form-control-sm': param.edit, 'form-control-plaintext form-control-sm': !param.edit}" ng-model="param.keterangan" required>

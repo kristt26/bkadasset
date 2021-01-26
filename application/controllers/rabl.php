@@ -30,7 +30,7 @@ class Rabl extends CI_Controller
     {
         $data = json_decode($this->security->xss_clean($this->input->raw_input_stream), true);
         $result = $this->Rabl_model->insert($data);
-        echo json_decode($result);
+        echo json_encode($result);
     }
 
     public function addsurat()
@@ -53,9 +53,23 @@ class Rabl extends CI_Controller
         echo json_encode($result);
     }
 
+    public function updatesurat()
+    {
+        $data = json_decode($this->security->xss_clean($this->input->raw_input_stream), true);
+        $result = $this->Rabl_model->updatesurat($data);
+        echo json_encode($result);
+    }
+
     public function delete($id)
     {
         $result = $this->Rabl_model->delete($id);
+        echo json_encode($result);
+    }
+
+    public function persetujuan()
+    {
+        $data = json_decode($this->security->xss_clean($this->input->raw_input_stream), true);
+        $result = $this->Rabl_model->persetujuan($data);
         echo json_encode($result);
     }
 
@@ -79,14 +93,10 @@ class Rabl extends CI_Controller
                 'alamat' => $pelaksana['alamat'],
                 'kontak' => $pelaksana['kontak'],
             ]);
-            // header("Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document");
             header("Content-Disposition: attachment; filename=myFilewe.docx");
-            // $objWriter->save('php://output');
             $phpWord->saveAs('php://output');
         } catch (Exception $e) {
             echo $e->getMessage();
         }
     }
 }
-
-/* End of file Staff.php */

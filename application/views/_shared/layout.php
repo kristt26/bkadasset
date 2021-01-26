@@ -212,6 +212,7 @@ $this->load->view('_shared/sidebar');
   <script src="<?=base_url()?>public/lib/angular-locale_id-id.js"></script>
   <script src="<?=base_url()?>public/lib/input-mask/angular-input-masks-standalone.min.js"></script>
   <script src="<?=base_url()?>public/lib/angular-base64-upload.js"></script>
+  <script src="<?=base_url()?>public/js/jquery.PrintArea.js"></script>
   <!-- <script src="<?=base_url()?>public/lib/pdfmake/build/pdfmake.js"></script>
   <script src="<?=base_url()?>public/lib/pdfmake/build/vfs_fonts.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
@@ -222,9 +223,7 @@ $this->load->view('_shared/sidebar');
     $(function () {
       //Initialize Select2 Elements
       $('[data-toggle="tooltip"]').tooltip()
-      $('.select2').select2({
-        placeholder: '--- Pilih Item ---'
-      });
+      $('.select2').select2();
 
 
 

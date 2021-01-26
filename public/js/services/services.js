@@ -5,6 +5,7 @@ angular.module('services', [])
     .factory('RablServices', RablServices)
     .factory('KendaraanServices', KendaraanServices)
     .factory('PelaksanaServices', PelaksanaServices)
+    .factory('LaporanServices', LaporanServices)
     ;
 
 function UserServices($http, $q, helperServices) {
@@ -292,17 +293,18 @@ function RablServices($http, $q, helperServices, AuthService) {
     service.data = [];
     service.instance = false;
     return {
-        get: get, post: post, put: put, hapus: hapus, postSurat: postSurat, download: download
+        get: get, post: post, put: put, hapus: hapus, postSurat: postSurat, download: download, putSurat:putSurat, persetujuan:persetujuan
     };
 
-    function get() {
+    function get(id) {
         var def = $q.defer();
         if (service.instance) {
             def.resolve(service.data);
         } else {
+            var Url = id == null ? controller + 'get' : controller + 'get/' + id;
             $http({
                 method: 'get',
-                url: controller + 'get',
+                url: Url,
                 headers: AuthService.getHeader()
             }).then(
                 (res) => {
@@ -337,6 +339,26 @@ function RablServices($http, $q, helperServices, AuthService) {
         );
         return def.promise;
     }
+
+    function put(param) {
+        var def = $q.defer();
+        $http({
+            method: 'put',
+            url: controller + 'update',
+            data: param,
+            headers: AuthService.getHeader()
+        }).then(
+            (res) => {
+                def.resolve(res.data);
+            },
+            (err) => {
+                def.reject(err);
+                message.error(err);
+            }
+        );
+        return def.promise;
+    }
+
     function postSurat(param) {
         var def = $q.defer();
         $http({
@@ -346,7 +368,7 @@ function RablServices($http, $q, helperServices, AuthService) {
             headers: AuthService.getHeader()
         }).then(
             (res) => {
-                var data = service.data.find(x=>x.id == param.id);
+                var data = service.data.find(x => x.id == param.id);
                 if (data) {
                     data.suratperjanjian = res.data;
                 }
@@ -360,21 +382,18 @@ function RablServices($http, $q, helperServices, AuthService) {
         return def.promise;
     }
 
-    function put(param) {
+    function putSurat(param) {
         var def = $q.defer();
         $http({
             method: 'put',
-            url: controller + 'update',
+            url: controller + 'updatesurat',
             data: param,
             headers: AuthService.getHeader()
         }).then(
             (res) => {
-                var data = service.data.find(x => x.id == param.id);
-                if (data) {
-                    data.opd = param.opd;
-                    data.penggunaid = param.penggunaid;
-                    data.nama = param.nama;
-                    data.username = param.username;
+                var data = service.data.find(x=>x.id==param.id);
+                if(data){
+                    data.suratperjanjian = res.data;
                 }
                 def.resolve(res.data);
             },
@@ -385,6 +404,7 @@ function RablServices($http, $q, helperServices, AuthService) {
         );
         return def.promise;
     }
+
 
     function hapus(param) {
         var def = $q.defer();
@@ -397,6 +417,28 @@ function RablServices($http, $q, helperServices, AuthService) {
             (res) => {
                 var index = service.data.indexOf(param)
                 service.data.splice(index, 1);
+                def.resolve(res.data);
+            },
+            (err) => {
+                def.reject(err);
+            }
+        );
+        return def.promise;
+    }
+    function persetujuan(param) {
+        var def = $q.defer();
+        $http({
+            method: 'put',
+            url: controller + 'persetujuan',
+            headers: AuthService.getHeader(),
+            data: param
+        }).then(
+            (res) => {
+                var data = service.data.find(x=>x.suratperjanjian!==null && x.suratperjanjian.id==param.id);
+                if(data){
+                    data.suratperjanjian.status = param.status;
+                    data.suratperjanjian.catatan = param.catatan;
+                }
                 def.resolve(res.data);
             },
             (err) => {
@@ -520,6 +562,7 @@ function KendaraanServices($http, $q, helperServices, AuthService) {
     }
 
 }
+
 function PelaksanaServices($http, $q, helperServices, AuthService) {
     var controller = helperServices.url + '/pelaksana/';
     var service = {};
@@ -616,4 +659,38 @@ function PelaksanaServices($http, $q, helperServices, AuthService) {
         return def.promise;
     }
 
+}
+
+function LaporanServices($http, $q, helperServices, AuthService) {
+    var controller = helperServices.url + '/laporan/';
+    var service = {};
+    service.data = [];
+    service.instance = false;
+    return {
+        get: get
+    };
+
+    function get() {
+        var def = $q.defer();
+        if (service.instance) {
+            def.resolve(service.data);
+        } else {
+            $http({
+                method: 'get',
+                url: controller + 'get',
+                headers: AuthService.getHeader()
+            }).then(
+                (res) => {
+                    service.instance = true;
+                    service.data = res.data;
+                    def.resolve(res.data);
+                },
+                (err) => {
+                    console.log(err.data);
+                    def.reject(err);
+                }
+            );
+        }
+        return def.promise;
+    }
 }

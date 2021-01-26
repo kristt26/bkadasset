@@ -17,7 +17,7 @@ function AuthService($http, $q, helperServices) {
         // logOff: logoff,
         // userIsLogin: userIsLogin,
         // getUserName: getUserName,
-        // userIsLogin: userIsLogin,
+        userIsLogin: userIsLogin,
         // userInRole: userInRole,
         getHeader: getHeader,
         // getToken: getToken,
@@ -50,18 +50,8 @@ function AuthService($http, $q, helperServices) {
 
 
     function getHeader() {
-
-        try {
-            if (userIsLogin()) {
-                return {
-                    'Content-Type': 'application/json'
-                }
-            }
-            throw new Error("Not Found Token");
-        } catch {
-            return {
-                'Content-Type': 'application/json'
-            }
+        return {
+            'Content-Type': 'application/json'
         }
     }
 
@@ -91,6 +81,23 @@ function AuthService($http, $q, helperServices) {
     //     }
     // }
 
+    function userIsLogin() {
+        var def = $q.defer();
+        $http({
+            method: 'GET',
+            url: helperServices.url + "/auth/islogin",
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(res => {
+            var user = res.data;
+            def.resolve(user);
+        }, err => {
+            def.reject(err);
+            message.error(err);
+        });
+        return def.promise;
+    }
     // function userIsLogin() {
     //     var result = StorageService.getObject("user");
     //     if (result) {

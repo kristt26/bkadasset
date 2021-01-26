@@ -3,6 +3,7 @@
   <div class="user-panel mt-3 pb-3 mb-3 d-flex">
     <div class="image">
       <!-- <p>&nbsp;</p> -->
+      <p style="color:white">Selamat Datang</p>
       <a href="#" class="d-block  text-wrap">
         <?=strtoupper($this->session->userdata('nama'));?>
       </a>
@@ -59,37 +60,6 @@ if ($this->session->userdata('role') == "Admin"):
           </p>
         </a>
       </li>
-      <!-- <li
-        ng-class="{'nav-item menu-open': header=='Pelanggan' || header=='Pembelian', 'nav-item': header!='Pelanggan' || header!='Pembelian'}">
-        <a href="#"
-          ng-class="{'nav-link active': header=='Pelanggan' || header=='Pembelian', 'nav-link': header!='Pelanggan' || header!='Pembelian'}">
-          <i class="nav-icon fas fa-th"></i>
-          <p>
-            Master Data
-            <i class="right fas fa-angle-left"></i>
-          </p>
-        </a>
-        <ul class="nav nav-treeview">
-          <li class="nav-item">
-            <a href="<?=base_url('pelanggan')?>"
-              ng-class="{'nav-link active': header=='Pelanggan', 'nav-link': header!='Pelanggan'}">
-              <i class="far fa-circle nav-icon"></i>
-              <p>
-                Pelanggan
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="<?=base_url('pembelian')?>"
-              ng-class="{'nav-link active': header=='Pembelian', 'nav-link': header!='Pembelian'}">
-              <i class="far fa-circle nav-icon"></i>
-              <p>
-                Pembelian
-              </p>
-            </a>
-          </li>
-        </ul>
-      </li> -->
       <li class="nav-item">
         <a href="<?=base_url('rabl')?>"
           ng-class="{'nav-link active': header=='Manajemen RAB', 'nav-link': header!='Manajemen RAB'}">
@@ -100,44 +70,13 @@ if ($this->session->userdata('role') == "Admin"):
         </a>
       </li>
       <li class="nav-item">
-        <a href="<?=base_url('pesan')?>"
-          ng-class="{'nav-link active': header=='Pesan Broadcast', 'nav-link': header!='Pesan Broadcast'}">
-          <i class="nav-icon fas fa-sms"></i>
-          <p>
-            Pesan Broadcast
-          </p>
-        </a>
-      </li>
-      <li
-        ng-class="{'nav-item menu-open': header=='Laporan Pembelian' || header=='Laporan Penjualan', 'nav-item': header!='Laporan Pembelian' || header!='Laporan Penjualan'}">
-        <a href="#"
-          ng-class="{'nav-link active': header=='Laporan Pembelian' || header=='Laporan Penjualan', 'nav-link': header!='Laporan Pembelian' || header!='Laporan Penjualan'}">
+        <a href="<?=base_url('laporan')?>"
+          ng-class="{'nav-link active': header=='Laporan', 'nav-link': header!='Laporan'}">
           <i class="nav-icon fas fa-file"></i>
           <p>
             Laporan
-            <i class="right fas fa-angle-left"></i>
           </p>
         </a>
-        <ul class="nav nav-treeview">
-          <li class="nav-item">
-            <a href="<?=base_url('pembelian/laporan')?>"
-              ng-class="{'nav-link active': header=='Laporan Pembelian', 'nav-link': header!='Laporan Pembelian'}">
-              <i class="far fa-circle nav-icon"></i>
-              <p>
-                Pembelian
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="<?=base_url('transaksi/laporan')?>"
-              ng-class="{'nav-link active': header=='Laporan Penjualan', 'nav-link': header!='Laporan Penjualan'}">
-              <i class="far fa-circle nav-icon"></i>
-              <p>
-                Penjualan
-              </p>
-            </a>
-          </li>
-        </ul>
       </li>
       <?php else: ?>
         <li class="nav-item">

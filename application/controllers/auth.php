@@ -39,6 +39,11 @@ class Auth extends CI_Controller
         redirect('auth');
     }
 
+    public function islogin()
+    {
+        echo json_encode($this->session->userdata());
+    }
+
 }
 
 /* End of file auth.php */

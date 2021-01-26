@@ -9,11 +9,13 @@
         <form role="form" ng-submit="save()">
           <div class="form-group">
             <label for="opd"  class="col-form-label col-form-label-sm">OPD</label>
-            <input type="text" class="form-control  form-control-sm" id="opd" ng-model="model.opd" placeholder="Input OPD disini">
+            <input type="text" class="form-control  form-control-sm" id="opd" ng-model="model.opd" placeholder="Input OPD disini" required>
           </div>
           <div class="form-group">
             <label for="roles" class="col-form-label col-form-label-sm">Pengguna</label>
-            <select id="roles" class="form-control  form-control-sm" ng-options="item as item.nama for item in penggunas" ng-model="itemPengguna" ng-change="model.nama=itemPengguna.nama; model.username = itemPengguna.username; model.penggunaid = itemPengguna.id; model.nip = itemPengguna.nip"></select>
+            <select id="roles" class="form-control  form-control-sm select2" ng-options="item as item.nama for item in penggunas track by item.id" ng-model="itemPengguna" ng-change="model.nama=itemPengguna.nama; model.username = itemPengguna.username; model.penggunaid = itemPengguna.id; model.nip = itemPengguna.nip" ng-required="true">
+              <option></option>
+            </select>
           </div>
           <div class="form-group d-flex justify-content-end">
             <button type="submit" class="btn btn-primary btn-sm pull-right">{{simpan ? 'Simpan': 'Ubah'}}</button>

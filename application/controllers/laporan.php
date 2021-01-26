@@ -4,7 +4,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class laporan extends CI_Controller
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -14,14 +13,15 @@ class laporan extends CI_Controller
 
     public function index()
     {
+        // $result['opd'] = $this->Laporan_model->ambilLaporan();
         $data['content'] = $this->load->view('laporan/index', '', true);
         $this->load->view('_shared/layout', $data);
     }
 
     public function get($id = null)
     {
-        $data = json_decode($this->security->xss_clean($this->input->raw_input_stream), true);
-        $result = $this->Laporan_model->ambilLaporan($data);
+        // $data = json_decode($this->security->xss_clean($this->input->raw_input_stream), true);
+        $result = $this->Laporan_model->ambilLaporan();
         echo json_encode($result);
     }
 
