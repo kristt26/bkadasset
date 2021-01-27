@@ -99,6 +99,12 @@
                       <input type="text" class="form-control form-control-sm" ng-model="detailRabl.tahunperolehan">
                     </td>
                     <td>
+                      <input type="text" class="form-control form-control-sm" ng-model="detailRabl.pejabat">
+                    </td>
+                    <td>
+                      <input type="text" class="form-control form-control-sm" ng-model="detailRabl.jabatan">
+                    </td>
+                    <td>
                       <input type="text" class="form-control form-control-sm" ng-model="detailRabl.keterangan">
                     </td>
                     <td>
