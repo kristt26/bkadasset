@@ -1,75 +1,69 @@
-<div class="row" ng-controller="homeController">
-  <!-- <div class="col-lg-4 col-6">
-    <div class="small-box bg-info">
-      <div class="inner">
-        <h4><?= number_format($totalpelanggan->totalpelanggan,0,",",".") . " Pelanggan"?></h4>
+<div ng-controller="homeController">
+  <div class="col-md-12">
+    <div class="row" style="margin-bottom: 50px">
+      <div class="col-lg-3 col-6">
+        <!-- small box -->
+        <div class="small-box bg-olive">
+          <div class="inner">
+            <h3>{{datas.opd}}</h3>
 
-        <p>Total Pelanggan</p>
+            <p>Jumlah OPD</p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-bag"></i>
+          </div>
+          <a href="<?=base_url('opd')?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
       </div>
-      <div class="icon">
-        <i class="ion ion-person-add"></i>
+      <!-- ./col -->
+      <div class="col-lg-3 col-6">
+        <!-- small box -->
+        <div class="small-box bg-info">
+          <div class="inner">
+            <h3>{{datas.pengajuan}}<sup style="font-size: 20px"></sup></h3>
+
+            <p>Jumlah RABL</p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-stats-bars"></i>
+          </div>
+          <a href="<?=base_url('rabl')?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+      </div>
+      <!-- ./col -->
+      <div class="col-lg-3 col-6">
+        <!-- small box -->
+        <div class="small-box bg-warning">
+          <div class="inner">
+            <h3>{{datas.disetujui}}</h3>
+
+            <p>RABL Diajukan</p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-person-add"></i>
+          </div>
+          <a href="<?=base_url('rabl#custom-tabs-one-pengajuan')?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+      </div>
+      <!-- ./col -->
+      <div class="col-lg-3 col-6">
+        <!-- small box -->
+        <div class="small-box bg-success">
+          <div class="inner">
+            <h3>{{datas.ditolak}}</h3>
+
+            <p>RABL Disetujui</p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-pie-graph"></i>
+          </div>
+          <a href="<?=base_url('rabl#custom-tabs-one-disetujui')?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+      </div>
       </div>
     </div>
-  </div>
-  <div class="col-lg-4 col-6">
-    <div class="small-box bg-secondary">
-      <div class="inner">
-        <h4><?= number_format($totalbeli,0,",",".") . " Liter"?></h4>
-
-        <p>Total Beli</p>
-      </div>
-      <div class="icon">
-        <i class="fas fa-oil-can"></i>
-      </div>
-    </div>
-  </div>
-  <div class="col-lg-4 col-6">
-    <div class="small-box bg-danger">
-      <div class="inner">
-        <h4><?= number_format($totaljual,0,",",".") . " Liter"?></h4>
-
-        <p>Total Terjual</p>
-      </div>
-      <div class="icon">
-        <i class="fas fa-oil-can"></i>
-      </div>
-    </div>
-  </div>
-  <div class="col-lg-4 col-6">
-    <div class="small-box bg-danger">
-      <div class="inner">
-        <h4><?= number_format($stokakhir,0,",",".") . " Liter"?></h4>
-
-        <p>Stok Akhir</p>
-      </div>
-      <div class="icon">
-        <i class="fas fa-oil-can"></i>
-      </div>
-    </div>
-  </div>
-  <div class="col-lg-4 col-6">
-    <div class="small-box bg-warning">
-      <div class="inner">
-        <h4><?= "Rp. " . number_format($totalpembelian,2,",",".")?></h4>
-
-        <p>Total Pembelian</p>
-      </div>
-      <div class="icon">
-        <i class="ion ion-bag"></i>
-      </div>
-    </div>
-  </div>
-  <div class="col-lg-4 col-6">
-    <div class="small-box bg-success">
-      <div class="inner">
-        <h4><?= "Rp. " . number_format($totalpenjualan,2,",",".")?></h4>
-
-        <p>Total Penjualan</p>
-      </div>
-      <div class="icon">
-        <i class="ion ion-cash"></i>
-      </div>
-    </div>
+  <!-- <div class="col-lg-12 text-center">
+    <img src="<?=base_url('public/img/logo.png')?>" alt="" width="10%">
+    <h3>SISTEM INFORMASI PENATAUSAHAAN ASSET TETAP DAERAH KOTA JAYAPURA</h3>
   </div> -->
-  
 </div>

@@ -6,7 +6,7 @@ class Opd_model extends CI_Model
 {
     public function select($id = null)
     {
-        if(is_null($id)){
+        if (is_null($id)) {
             return $this->db->query("SELECT
                 `opd`.`id`,
                 `opd`.`penggunaid`,
@@ -18,7 +18,7 @@ class Opd_model extends CI_Model
                 `opd`
                 LEFT JOIN `pengguna` ON `pengguna`.`id` = `opd`.`penggunaid`
                 LEFT JOIN `users` ON `users`.`id` = `pengguna`.`usersid`")->result();
-        }else{
+        } else {
             return $this->db->query("SELECT
                 `opd`.`id`,
                 `opd`.`penggunaid`,
@@ -37,12 +37,12 @@ class Opd_model extends CI_Model
     {
         $this->db->trans_begin();
         $opd = [
-            'opd'=>$data['opd'],
-            'penggunaid'=>$data['penggunaid']
+            'opd' => $data['opd'],
+            'penggunaid' => $data['penggunaid'],
         ];
         $this->db->insert("opd", $opd);
         $data['id'] = $this->db->insert_id();
-        if($this->db->trans_status()){
+        if ($this->db->trans_status()) {
             $this->db->trans_commit();
             return $data;
         } else {
@@ -54,18 +54,18 @@ class Opd_model extends CI_Model
     {
         $this->db->trans_begin();
         $user = [
-            'username'=>$data['username']
+            'username' => $data['username'],
         ];
-        $this->db->update('users', $user, ['id'=>$data['usersid']]);
+        $this->db->update('users', $user, ['id' => $data['usersid']]);
         $opd = [
-            'opd'=>$data['opd'],
-            'penggunaid'=>$data['penggunaid']
+            'opd' => $data['opd'],
+            'penggunaid' => $data['penggunaid'],
         ];
-        $this->db->update('opd', $opd, ['id'=>$data['id']]);
-        if($this->db->trans_status()){
+        $this->db->update('opd', $opd, ['id' => $data['id']]);
+        if ($this->db->trans_status()) {
             $this->db->trans_commit();
             return $data;
-        }else{
+        } else {
             $this->db->trans_rollback();
             return false;
         }

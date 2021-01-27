@@ -1,4 +1,5 @@
 angular.module('services', [])
+    .factory('HomeServices', HomeServices)
     .factory('UserServices', UserServices)
     .factory('PenggunaServices', PenggunaServices)
     .factory('OpdServices', OpdServices)
@@ -8,6 +9,43 @@ angular.module('services', [])
     .factory('LaporanServices', LaporanServices)
     ;
 
+function HomeServices($http, $q, helperServices, AuthService) {
+    var controller = helperServices.url + '/home/';
+    var service = {};
+    service.data = [];
+    service.instance = false;
+    return {
+        get: get
+    };
+
+    function get() {
+        var def = $q.defer();
+        if (service.instance) {
+            def.resolve(service.data);
+        } else {
+            $http({
+                method: 'get',
+                url: controller + "get",
+                headers: AuthService.getHeader()
+            }).then(
+                (res) => {
+                    service.instance = true;
+                    service.data = res.data;
+                    def.resolve(res.data);
+                },
+                (err) => {
+                    def.reject(err);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Information Error',
+                        text: err.data
+                    })
+                }
+            );
+        }
+        return def.promise;
+    }
+}
 function UserServices($http, $q, helperServices) {
     var controller = helperServices.url + 'users';
     var service = {};

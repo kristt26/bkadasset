@@ -7,17 +7,13 @@ angular.module('adminctrl', [])
     .controller('rablController', rablController)
     .controller('laporanController', laporanController)
     ;
-function homeController($scope) {
+function homeController($scope, HomeServices) {
     $scope.itemHeader = { title: "Home", breadcrumb: "Home", header: "Home" };
     $scope.$emit("SendUp", $scope.itemHeader);
     $scope.datas = [];
-    $scope.datass = [];
-    $scope.model = {};
-    $scope.simpan = true;
-    $scope.hasilAkhir = {};
-    $scope.hasilAkhir.hasil = 0;
-    $scope.periode = {};
-    $scope.setValue;
+    HomeServices.get().then(x=>{
+        $scope.datas = x
+    })
     $.LoadingOverlay("hide");
 
 }
