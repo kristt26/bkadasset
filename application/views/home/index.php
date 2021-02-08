@@ -62,8 +62,16 @@
       </div>
       </div>
     </div>
-  <!-- <div class="col-lg-12 text-center">
-    <img src="<?=base_url('public/img/logo.png')?>" alt="" width="10%">
-    <h3>SISTEM INFORMASI PENATAUSAHAAN ASSET TETAP DAERAH KOTA JAYAPURA</h3>
-  </div> -->
+  </div>
+  <div class="col-md-12">
+    <div class="row">
+      <div class="col-md-6">
+        <div id="tahun" style="min-width: 310px; margin: 0 auto"></div>
+      </div>
+      <div class="col-md-6">
+        <div id="keterangan"></div>
+      </div>
+    </div>
+    <!-- <canvas id="myChart" width="400" height="200"></canvas> -->
+  </div>
 </div>

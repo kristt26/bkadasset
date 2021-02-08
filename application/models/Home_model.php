@@ -66,6 +66,28 @@ class Home_model extends CI_Model
             return $data;
         }
     }
+
+    public function datagrafik()
+    {
+        $tahuns = $this->db->query("SELECT tahunperolehan as tahun FROM detailrabl group by tahunperolehan ASC")->result();
+        $datatahun = [];
+        $tahun = [];
+        foreach ($tahuns as $key => $value) {
+            $item = $this->db->query("SELECT COUNT(*) as jumlah FROM detailrabl WHERE tahunperolehan ='$value->tahun'")->row_object();
+            array_push($datatahun, (int) $item->jumlah);
+            array_push($tahun, $value->tahun);
+        }
+        $keterangan = $this->db->query("SELECT (SELECT COUNT(*) FROM detailrabl WHERE keterangan='Baik') as baik, (SELECT COUNT(*) FROM detailrabl WHERE keterangan='Rusak') as rusak")->row_object();
+        $data = [
+            'tahun' => $tahun,
+            'datatahun' => $datatahun,
+            'keterangan' => [
+                ['name' => 'Baik', 'y' => ((int) $keterangan->baik / ((int) $keterangan->baik + (int) $keterangan->rusak)) * 100, 'sliced' => true, 'selected' => true],
+                ['name' => 'Rusak', 'y' => ((int) $keterangan->rusak / ((int) $keterangan->baik + (int) $keterangan->rusak)) * 100, 'sliced' => true, 'selected' => true],
+            ],
+        ];
+        return $data;
+    }
 }
 
 /* End of file Home_model.php */

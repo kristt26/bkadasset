@@ -11,9 +11,75 @@ function homeController($scope, HomeServices) {
     $scope.itemHeader = { title: "Home", breadcrumb: "Home", header: "Home" };
     $scope.$emit("SendUp", $scope.itemHeader);
     $scope.datas = [];
-    HomeServices.get().then(x=>{
-        $scope.datas = x
+    HomeServices.get().then(x => {
+        $scope.datas = x.data;
+        $scope.highchartahun(x.grafik.tahun, x.grafik.datatahun);
+        $scope.grafikketerangan(x.grafik.keterangan);
     })
+    $scope.highchartahun = (labell, dataa) => {
+        Highcharts.chart('tahun', {
+            title: {
+                text: 'Grafik Kendaraan Per Tahun'
+            },
+            xAxis: {
+                categories: labell,
+                title: {
+                    text: 'Tahun Perolehan'
+                }
+            },
+            yAxis: {
+                title: {
+                    text: 'Jumlah Kendaraan'
+                }
+            },
+            tooltip: {
+                pointFormat: "Jumlah Kendaraan: {point.y:,.0f}"
+            },
+            series: [{
+                type: 'column',
+                colorByPoint: true,
+                // name: 'Rp',
+                data: dataa,
+                showInLegend: false
+            }]
+        });
+    }
+    $scope.grafikketerangan = (data) => {
+        Highcharts.chart('keterangan', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: 'Grafik Status Kendaraan'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            accessibility: {
+                point: {
+                    valueSuffix: '%'
+                }
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                    }
+                }
+            },
+            series: [{
+                name: 'Persentase',
+                colorByPoint: true,
+                data: data
+            }]
+        });
+    }
     $.LoadingOverlay("hide");
 
 }
@@ -189,7 +255,7 @@ function rablController($scope, helperServices, OpdServices, RablServices, Kenda
     $scope.detailRabl = {};
     $scope.user;
     // $scope.testing = {"detail":[{"merk":"Daihatsu","type":"Gran Max MB","jeniskendaraanid":"1","nomorrangka":"121231","nomorplat":"21212","tahunperolehan":"2019","keterangan":"-","qty":1,"hargasatuan":30000000,"totalharga":27000000,"ppn":0.1,"kendaraan":{"id":"1","merk":"Daihatsu","type":"Gran Max MB"},"edit":false}]}
-    $scope.Init = ()=>{
+    $scope.Init = () => {
         $.LoadingOverlay("show");
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get('url') == 'add') {
@@ -229,9 +295,9 @@ function rablController($scope, helperServices, OpdServices, RablServices, Kenda
                 AuthService.userIsLogin().then(user => {
                     $scope.user = user;
                     $scope.datas = x
-                    $scope.proses = user.role == 'OPD' ? x.filter(x => x.suratperjanjian ==null || (x.suratperjanjian !=null && x.suratperjanjian.status =='P')) : x.filter(x => x.suratperjanjian !== null && x.suratperjanjian.status =='P');
-                    $scope.disetujui = user.role == 'OPD' ? x.filter(x => x.suratperjanjian !=null && x.suratperjanjian.status =='Y') : x.filter(x => x.suratperjanjian !== null && x.suratperjanjian.status =='Y');
-                    $scope.ditolak = user.role == 'OPD' ? x.filter(x => x.suratperjanjian !=null && x.suratperjanjian.status =='N') : x.filter(x => x.suratperjanjian !== null && x.suratperjanjian.status =='N');
+                    $scope.proses = user.role == 'OPD' ? x.filter(x => x.suratperjanjian == null || (x.suratperjanjian != null && x.suratperjanjian.status == 'P')) : x.filter(x => x.suratperjanjian !== null && x.suratperjanjian.status == 'P');
+                    $scope.disetujui = user.role == 'OPD' ? x.filter(x => x.suratperjanjian != null && x.suratperjanjian.status == 'Y') : x.filter(x => x.suratperjanjian !== null && x.suratperjanjian.status == 'Y');
+                    $scope.ditolak = user.role == 'OPD' ? x.filter(x => x.suratperjanjian != null && x.suratperjanjian.status == 'N') : x.filter(x => x.suratperjanjian !== null && x.suratperjanjian.status == 'N');
                     $.LoadingOverlay("hide");
                     $.LoadingOverlay("hide");
                 })
@@ -265,11 +331,11 @@ function rablController($scope, helperServices, OpdServices, RablServices, Kenda
                     showCancelButton: false,
                     confirmButtonText: 'Ok',
                     allowOutsideClick: false
-                  }).then((result) => {
+                }).then((result) => {
                     if (result) {
                         location.href = helperServices.url + "/rabl";
                     }
-                  })
+                })
             })
         } else {
             if ($scope.model.detail.length == 0) {
@@ -290,11 +356,11 @@ function rablController($scope, helperServices, OpdServices, RablServices, Kenda
                         showCancelButton: false,
                         confirmButtonText: 'Ok',
                         allowOutsideClick: false
-                      }).then((result) => {
+                    }).then((result) => {
                         if (result) {
                             location.href = helperServices.url + "/rabl";
                         }
-                      })
+                    })
                 })
             }
         }
@@ -313,13 +379,13 @@ function rablController($scope, helperServices, OpdServices, RablServices, Kenda
                     showCancelButton: false,
                     confirmButtonText: 'Ok',
                     allowOutsideClick: false
-                  }).then((result) => {
+                }).then((result) => {
                     if (result) {
                         $scope.Init();
                         $scope.closeModal('createSuratPerjanjian');
                     }
-                  })
-                
+                })
+
             })
         } else {
             data.suratperjanjian.tanggal = data.suratperjanjian.tanggal.getFullYear() + "-" + (data.suratperjanjian.tanggal.getMonth() + 1) + "-" + data.suratperjanjian.tanggal.getDate();
@@ -333,12 +399,12 @@ function rablController($scope, helperServices, OpdServices, RablServices, Kenda
                     showCancelButton: false,
                     confirmButtonText: 'Ok',
                     allowOutsideClick: false
-                  }).then((result) => {
+                }).then((result) => {
                     if (result) {
                         $scope.Init();
                         $scope.closeModal('createSuratPerjanjian');
                     }
-                  })
+                })
             })
         }
     }
@@ -354,13 +420,13 @@ function rablController($scope, helperServices, OpdServices, RablServices, Kenda
         }
     }
     $scope.showModal = (idmodal, item) => {
-        $("#" + idmodal).modal({show:true,backdrop: false});
+        $("#" + idmodal).modal({ show: true, backdrop: false });
         $scope.model = angular.copy(item);
         if ($scope.model.suratperjanjian) {
             $scope.model.suratperjanjian.tanggal = new Date($scope.model.suratperjanjian.tanggal);
             $scope.edit = false;
             $scope.model.berkas = [];
-            var nilai = { nama: 'Surat Pesan Kendaraan', berkas: $scope.model.suratperjanjian.suratpesankendaraan !== "" ? helperServices.url + "/public/berkas/" + $scope.model.suratperjanjian.suratpesankendaraan:"" };
+            var nilai = { nama: 'Surat Pesan Kendaraan', berkas: $scope.model.suratperjanjian.suratpesankendaraan !== "" ? helperServices.url + "/public/berkas/" + $scope.model.suratperjanjian.suratpesankendaraan : "" };
             $scope.model.berkas.push(angular.copy(nilai));
             var nilai = { nama: 'Berita Acara Serah Terima', berkas: $scope.model.suratperjanjian.baserahterima !== "" ? helperServices.url + "/public/berkas/" + $scope.model.suratperjanjian.baserahterima : "" };
             $scope.model.berkas.push(angular.copy(nilai));
@@ -368,17 +434,17 @@ function rablController($scope, helperServices, OpdServices, RablServices, Kenda
             $scope.model.berkas.push(angular.copy(nilai));
             var nilai = { nama: 'Berita Acara Pemeriksaan Pekerjaan', berkas: $scope.model.suratperjanjian.bapemeriksaanpek !== "" ? helperServices.url + "/public/berkas/" + $scope.model.suratperjanjian.bapemeriksaanpek : "" };
             $scope.model.berkas.push(angular.copy(nilai));
-            var nilai = { nama: 'Berita Acara Pemeriksaan Admin Hasil Pekerjaan', berkas: $scope.model.suratperjanjian.bapemeriksaanadmnhslpek !== "" ? helperServices.url + "/public/berkas/" + $scope.model.suratperjanjian.bapemeriksaanadmnhslpek: "" };
+            var nilai = { nama: 'Berita Acara Pemeriksaan Admin Hasil Pekerjaan', berkas: $scope.model.suratperjanjian.bapemeriksaanadmnhslpek !== "" ? helperServices.url + "/public/berkas/" + $scope.model.suratperjanjian.bapemeriksaanadmnhslpek : "" };
             $scope.model.berkas.push(angular.copy(nilai));
             var nilai = { nama: 'Surat Penawaran Harga', berkas: $scope.model.suratperjanjian.srtpenawaranhrg !== "" ? helperServices.url + "/public/berkas/" + $scope.model.suratperjanjian.srtpenawaranhrg : "" };
             $scope.model.berkas.push(angular.copy(nilai));
-            var nilai = { nama: 'Surat Persetujuan Harga', berkas: $scope.model.suratperjanjian.srtpersetujuanhrg !== "" ? helperServices.url + "/public/berkas/" + $scope.model.suratperjanjian.srtpersetujuanhrg: "" };
+            var nilai = { nama: 'Surat Persetujuan Harga', berkas: $scope.model.suratperjanjian.srtpersetujuanhrg !== "" ? helperServices.url + "/public/berkas/" + $scope.model.suratperjanjian.srtpersetujuanhrg : "" };
             $scope.model.berkas.push(angular.copy(nilai));
-            var nilai = { nama: 'Surat Penunjukan Langsung', berkas: $scope.model.suratperjanjian.srtpenunjukanlangsung !== "" ? helperServices.url + "/public/berkas/" + $scope.model.suratperjanjian.srtpenunjukanlangsung: "" };
+            var nilai = { nama: 'Surat Penunjukan Langsung', berkas: $scope.model.suratperjanjian.srtpenunjukanlangsung !== "" ? helperServices.url + "/public/berkas/" + $scope.model.suratperjanjian.srtpenunjukanlangsung : "" };
             $scope.model.berkas.push(angular.copy(nilai));
-            var nilai = { nama: 'Surat Penunjukan Penydia barang', berkas: $scope.model.suratperjanjian.srtpenunjukanpenyediabrg !== "" ? helperServices.url + "/public/berkas/" + $scope.model.suratperjanjian.srtpenunjukanpenyediabrg: "" };
+            var nilai = { nama: 'Surat Penunjukan Penydia barang', berkas: $scope.model.suratperjanjian.srtpenunjukanpenyediabrg !== "" ? helperServices.url + "/public/berkas/" + $scope.model.suratperjanjian.srtpenunjukanpenyediabrg : "" };
             $scope.model.berkas.push(angular.copy(nilai));
-            var nilai = { nama: 'Surat Perjanjian Pengadaan', berkas: $scope.model.suratperjanjian.srtperjanjianpengadaan !== "" ? helperServices.url + "/public/berkas/" + $scope.model.suratperjanjian.srtperjanjianpengadaan: "" };
+            var nilai = { nama: 'Surat Perjanjian Pengadaan', berkas: $scope.model.suratperjanjian.srtperjanjianpengadaan !== "" ? helperServices.url + "/public/berkas/" + $scope.model.suratperjanjian.srtperjanjianpengadaan : "" };
             $scope.model.berkas.push(angular.copy(nilai));
         } else {
             $scope.edit = true;
@@ -403,21 +469,21 @@ function rablController($scope, helperServices, OpdServices, RablServices, Kenda
         PelaksanaServices.post(item).then(x => {
             $scope.pelaksana = x;
             $("#addpelaksana").modal('hide');
-            
+
             $.LoadingOverlay("hide");
         })
     }
     $scope.download = (id, pelaksana) => {
         window.open(helperServices.url + "/rabl/downloadsurat/" + id + "/" + pelaksana);
     }
-    $scope.persetujuanSurat = (item, status, catatan)=>{
+    $scope.persetujuanSurat = (item, status, catatan) => {
         $.LoadingOverlay("show");
         var data = {};
         data.status = status;
         data.catatan = catatan ? catatan : "";
         data.id = item
         console.log(data);
-        RablServices.persetujuan(data).then(x=>{
+        RablServices.persetujuan(data).then(x => {
             $("#showCatatan").modal("hide");
             $("#createSuratPerjanjian").modal('hide');
             $scope.model = {};
@@ -426,19 +492,19 @@ function rablController($scope, helperServices, OpdServices, RablServices, Kenda
             $.LoadingOverlay("hide");
         })
     }
-    $scope.modalCatatan = (item)=>{
-        $("#showCatatan").modal({show:true,backdrop: false});
+    $scope.modalCatatan = (item) => {
+        $("#showCatatan").modal({ show: true, backdrop: false });
         $scope.model.id = item
     }
-    $scope.myFilter = function (item) { 
-        return item.suratperjanjian.status === 'P'; 
+    $scope.myFilter = function (item) {
+        return item.suratperjanjian.status === 'P';
     };
 }
 function laporanController($scope, LaporanServices) {
     $scope.itemHeader = { title: "Home", breadcrumb: "Home", header: "Home" };
     $scope.$emit("SendUp", $scope.itemHeader);
     $scope.datas = [];
-    LaporanServices.get().then(x=>{
+    LaporanServices.get().then(x => {
         $scope.datas = x;
         $.LoadingOverlay("hide");
     })

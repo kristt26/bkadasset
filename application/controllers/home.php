@@ -19,8 +19,14 @@ class home extends CI_Controller
     }
     public function get()
     {
-        $result = $this->Home_model->select();
+        $result['data'] = $this->Home_model->select();
+        $result['grafik'] = $this->grafik();
         echo json_encode($result);
+    }
+    public function grafik()
+    {
+        $result = $this->Home_model->datagrafik();
+        return $result;
     }
 }
 
